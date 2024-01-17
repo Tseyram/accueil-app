@@ -1,1 +1,156 @@
-<p>staraccount works!</p>
+<div>
+  <div>
+    <span class="badge text-bg-success align-center">compte {{ role }}</span>
+  </div>
+  <div class="row">
+    <div class="col-md-1 ms-2 mt-2">
+      <h2 class="grid-title"><i class="fa fa-filter"></i> Filtres</h2>
+      <hr />
+
+      <!-- BEGIN FILTER BY CATEGORY -->
+      <h4>Par type:</h4>
+      <div class="checkbox">
+        <label><input type="checkbox" class="icheck" /> Culte</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" class="icheck" /> TPA</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" class="icheck" /> 24H</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" class="icheck" /> MCEP</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" class="icheck" /> MFI</label>
+      </div>
+      <!-- END FILTER BY CATEGORY -->
+
+      <div class="padding"></div>
+
+      <!-- BEGIN FILTER BY DATE -->
+      <h4>Par date:</h4>
+      De
+      <div
+        class="input-group date form_date"
+        data-date="2014-06-14T05:25:07Z"
+        data-date-format="dd-mm-yyyy"
+        data-link-field="dtp_input1"
+      >
+        <input type="text" class="form-control" />
+        <span class="input-group-addon bg-blue"><i class="fa fa-th"></i></span>
+      </div>
+      <input type="hidden" id="dtp_input1" value="" />
+
+      A
+      <div
+        class="input-group date form_date"
+        data-date="2014-06-14T05:25:07Z"
+        data-date-format="dd-mm-yyyy"
+        data-link-field="dtp_input2"
+      >
+        <input type="text" class="form-control" />
+        <span class="input-group-addon bg-blue"><i class="fa fa-th"></i></span>
+      </div>
+      <button class="btn btn-info mt-1">Search</button>
+      <input type="hidden" id="dtp_input2" value="" />
+      <!-- END FILTER BY DATE -->
+
+      <div class="padding"></div>
+    </div>
+    <!-- END FILTERS -->
+    <div class="col col-md-6">
+      <div class="container mt-2">
+        <div *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+        <div class="card" *ngIf="events">
+          <div class="card-header">Evenements</div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Evenement</th>
+                  <th>Debut</th>
+                  <th>Fin</th>
+                  <th>Conducteur</th>
+                  <th *ngIf="role !== 'BERGER'">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let e of events">
+                  <td>{{ e.date }}</td>
+                  <td>{{ e.name }}</td>
+                  <td>{{ e.debut }}</td>
+                  <td>{{ e.fin }}</td>
+                  <td>{{ e.conducteur }}</td>
+                  <td>
+                    <ul class="nav nav pills">
+                      <li *ngIf="role !== 'BERGER'">
+                        <a
+                          (click)="handleDeleteEvent(e)"
+                          class="btn btn-danger ms-1 mt-1"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </a>
+                      </li>
+                      <li *ngIf="role !== 'BERGER'">
+                        <a
+                          (click)="handleUpdate(e)"
+                          class="btn btn-info ms-1 mt-1"
+                        >
+                          <i class="bi bi-arrow-down-up"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-md-6">
+      <nav class="p-3">
+        <!-- <ul class="nav nav-pills">
+          <li>
+            <button class="btn btn-outline-info ms-1">
+              COMPTER
+              <i class="bi bi-plus-slash-minus"></i>
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-outline-info ms-1">
+              ENREGISTRER UN EVENEMENT
+              <i class="bi bi-save"></i>
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-outline-info ms-1">
+              MODIFIER UN EVENEMENT
+              <i class="bi bi-arrow-clockwise"></i>
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-outline-info ms-1">
+              RECHERCHER UN EVENEMENT
+              <i class="bi bi-search"></i>
+            </button>
+          </li>
+          <li>
+            <button
+              (click)="handleDeconnexion()"
+              class="btn btn-outline-danger ms-1"
+            >
+              SE DECONNECTER
+              <i class="bi bi-box-arrow-left"></i>
+            </button> -->
+        <!-- </li>
+        </ul> -->
+      </nav>
+    </div>
+  </div>
+</div>
+<!-- <-- rechercher évenements-> -->

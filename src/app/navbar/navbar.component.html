@@ -15,32 +15,89 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="#"
+            >Home
+            <i class="bi bi-house"></i>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/infos">Infos</a>
+          <a class="nav-link" routerLink="/infos"
+            >Infos
+            <i class="bi bi-info"></i>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/connexion">Se connecter</a>
+          <a class="nav-link" routerLink="/connexion" *ngIf="role === undefined"
+            >Se connecter
+            <i class="bi bi-box-arrow-in-right"></i>
+          </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" routerLink="/about">A Propos</a>
+          <a class="nav-link" routerLink="/about"
+            >A Propos
+            <i class="bi bi-question-circle"></i>
+          </a>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+        <li class="nav-item" *ngIf="role !== undefined">
+          <a class="nav-link" routerLink="/staraccount">compte {{ role }} </a>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="role !== undefined">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            aria-disabled="true"
+          >
+            Options
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/compter"
+                *ngIf="role !== 'BERGER'"
+                >Compter</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/save"
+                *ngIf="role !== 'BERGER'"
+                >Enregistrer évènement</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/modifier"
+                *ngIf="role !== 'BERGER'"
+                >Modifier évènement</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/search">Rechercher</a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/plot"
+                *ngIf="role !== 'STAR'"
+                >Visualiser</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/calcul">Calculer</a>
+            </li>
           </ul>
-        </li> -->
-        <!-- <li class="nav-item">
+        </li>
+        <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li> -->
+        </li>
       </ul>
       <form class="d-flex" role="search">
         <input
