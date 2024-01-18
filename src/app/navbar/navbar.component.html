@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Accueil ICC</a>
+    <a class="navbar-brand" href="/">Accueil ICC</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#"
+          <a class="nav-link active" aria-current="page" href="/"
             >Home
             <i class="bi bi-house"></i>
           </a>
@@ -26,21 +26,13 @@
             <i class="bi bi-info"></i>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/connexion" *ngIf="role === undefined"
-            >Se connecter
-            <i class="bi bi-box-arrow-in-right"></i>
-          </a>
-        </li>
+        <li class="nav-item"></li>
 
         <li class="nav-item">
           <a class="nav-link" routerLink="/about"
             >A Propos
             <i class="bi bi-question-circle"></i>
           </a>
-        </li>
-        <li class="nav-item" *ngIf="role !== undefined">
-          <a class="nav-link" routerLink="/staraccount">compte {{ role }} </a>
         </li>
 
         <li class="nav-item dropdown" *ngIf="role !== undefined">
@@ -95,9 +87,9 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
+        </li> -->
       </ul>
       <form class="d-flex" role="search">
         <input
@@ -110,6 +102,39 @@
           Rechercher
         </button>
       </form>
+      <button
+        class="btn btn-danger m-2"
+        (click)="handleUserDeconnexion()"
+        *ngIf="role !== undefined"
+      >
+        Déconnexion
+      </button>
+      <a
+        class="btn btn-primary m-2"
+        routerLink="/connexion"
+        *ngIf="role === undefined"
+        >Se connecter
+        <i class="bi bi-box-arrow-in-right"></i>
+      </a>
+      <div class="">
+        <ul class="navbar-nav">
+          <li class="nav-item" *ngIf="role !== undefined">
+            <a
+              class="nav-link d-sm-flex align-items-sm-center"
+              routerLink="/staraccount"
+            >
+              <img
+                src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp"
+                class="rounded-circle"
+                height="22"
+                alt="Black and White Portrait of a Man"
+                loading="lazy"
+              />
+              <strong class="d-none d-sm-block ms-1">{{ role }}</strong>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

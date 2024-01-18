@@ -2,12 +2,69 @@ body {
   font-family: "Lato", sans-serif;
 }
 
-
-
-.main-head{
+.main {
   height: 150px;
-  background: #FFF;
+  background: #fff;
+  padding: 0px 10px;
+}
 
+/* Login actuel */
+.login-img {
+  width: 185px;
+}
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fccb90;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(
+    to right,
+    #ee7724,
+    #d8363a,
+    #dd3675,
+    #b44593
+  );
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+@media (min-width: 768px) {
+  .gradient-form {
+    height: 100vh !important;
+  }
+}
+@media (min-width: 769px) {
+  .gradient-custom-2 {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+  }
+}
+
+.btn-block {
+  --mdb-btn-margin-top: 0.5rem;
+  display: block;
+  width: 100%;
+}
+
+.form-outline {
+  position: relative;
+  width: 100%;
+}
+
+.text-muted {
+  --mdb-text-opacity: 1;
+  color: var(--mdb-secondary-color) !important;
+}
+
+/* Fin Login actuel */
+
+.login-section {
+  background-color: #eee;
+}
+.login-button {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .sidenav {
@@ -18,59 +75,52 @@ body {
   padding-top: 20px;
 }
 
-
-.main {
-  padding: 0px 10px;
-}
-
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
+  .sidenav {
+    padding-top: 15px;
+  }
 }
 
 @media screen and (max-width: 450px) {
-  .login-form{
-      margin-top: 10%;
-  }
-
-  .register-form{
-      margin-top: 10%;
+  .login-form,
+  .register-form {
+    margin-top: 10%;
   }
 }
 
-@media screen and (min-width: 768px){
-  .main{
-      margin-left: 40%;
+@media screen and (min-width: 768px) {
+  .main {
+    margin-left: 40%;
   }
 
-  .sidenav{
-      width: 40%;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
+  .sidenav {
+    width: 40%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
   }
 
-  .login-form{
-      margin-top: 80%;
+  .login-form {
+    margin-top: 80%;
   }
 
-  .register-form{
-      margin-top: 20%;
+  .register-form {
+    margin-top: 20%;
   }
 }
 
-
-.login-main-text{
+.login-main-text {
   margin-top: 20%;
   padding: 60px;
   color: #fff;
 }
 
-.login-main-text h2{
+.login-main-text h2 {
   font-weight: 300;
 }
 
-.btn-black{
+.btn-black {
   background-color: #000 !important;
-  color: #170e9e;
+  color: white;
 }

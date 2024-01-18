@@ -3,29 +3,30 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { userList } from '../model/fake.data';
 import { User } from '../model/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventsService {
   user = new BehaviorSubject<User | undefined>(undefined); // A ne pas initialiser ici
-  constructor(private http:HttpClient){}
-
+  constructor(private http: HttpClient, private router: Router) {}
 
   public getEvents(): Observable<any> {
-    return this.http.get("http://localhost:8081/events")
-}
-public searchCustomers(keyword:string): Observable<any> {
-  return this.http.get("http://localhost:8081/customers/search?keyword="+keyword)
-}
-
-public handleUserConnexion(username:string, password:string):User|null{
-for(let user of userList){
-  if(username==user.username && password==user.password){
-    return user;
+    return this.http.get('http://localhost:8081/events');
   }
-}
-return null;
-}
+  public searchCustomers(keyword: string): Observable<any> {
+    return this.http.get(
+      'http://localhost:8081/customers/search?keyword=' + keyword
+    );
+  }
 
+  public handleUserConnexion(username: string, password: string): User | null {
+    for (let user of userList) {
+      if (username == user.username && password == user.password) {
+        return user;
+      }
+    }
+    return null;
+  }
 }

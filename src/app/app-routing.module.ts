@@ -4,16 +4,23 @@ import { AboutComponent } from './about/about.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { InfosComponent } from './infos/infos.component';
 import { StaraccountComponent } from './staraccount/staraccount.component';
+import { HomeComponent } from './home/home.component';
+import { canActivateAuthGuard } from './services/auth.service';
 
 const routes: Routes = [
-  {path:"infos", component:InfosComponent},
-  {path:"about", component:AboutComponent},
-  {path:"connexion", component:ConnexionComponent},
-  {path:"staraccount", component:StaraccountComponent},
+  { path: 'infos', component: InfosComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'connexion', component: ConnexionComponent },
+  {
+    path: 'staraccount',
+    component: StaraccountComponent,
+    canActivate: [canActivateAuthGuard],
+  },
+  { path: '', component: HomeComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
