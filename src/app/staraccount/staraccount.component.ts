@@ -11,6 +11,9 @@ import { EventsService } from './../services/events.service';
 })
 
 export class StaraccountComponent {
+
+
+
 handleUpdate(_t38: any) {
 throw new Error('Method not implemented.');
 }
@@ -27,9 +30,14 @@ handleDeconnexion() {
   events:any;
   errorMessage!:string;
   role!:USER_ROLE;
+  currentPage:number=0;
+  pageSize:number=3;
+  choice!:string
 
-
-
+  gotToPage(page: number) {
+    this.currentPage=page;
+    this.handleGetEvents();
+    }
   constructor(private eventsService:EventsService, private fb: FormBuilder){}
 
   ngOnInit(): void {
@@ -44,7 +52,11 @@ this.searchFormGroup=this.fb.group({
         })
       ).subscribe();
 
-        this.eventsService.getEvents().subscribe({
+this.handleGetEvents();
+  }
+
+  handleGetEvents(){
+    this.eventsService.getEventHistory(this.currentPage,this.pageSize).subscribe({
       next:(data: any)=>{
         this.events=data;
       },

@@ -14,13 +14,10 @@ handleConnexion() {
   let username:string=this.connexionFormGroup.value.username.trim();
   let mdp:string=this.connexionFormGroup.value.mdp.trim();
   let user:User|null=this.eventService.handleUserConnexion(username,mdp);
-  console.log(username + " -- " + mdp);
-  console.log(user);
+
 
   if (user){
     this.eventService.user.next(user);
-    console.log("User from service = ");
-    console.log(this.eventService.user)
     this.router.navigateByUrl("/staraccount");
   }
 

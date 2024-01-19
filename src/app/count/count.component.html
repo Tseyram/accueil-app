@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Compter</h1>
+  <div>
+    <button (click)="incrementer()">+</button>
+    <input placeholder="0" [value]="value" />
+    <button (click)="decrementer()">-</button>
+  </div>
+  <div>
+    <button (click)="save = true" class="btn btn-success">Sauvegarder</button>
+    <button class="btn btn-danger" (click)="value = 0">Reset</button>
+  </div>
+  <div *ngIf="save == true">
+    <label for="">Nom à sauvegarder</label> <input type="text" />
+    <label for="">Valeur à sauvegarder: {{ value }} </label>
+    <button class="btn btn-outline-success" (click)="handleSave(value)">
+      Confirmer
+    </button>
+    <button class="btn btn-outline-danger" (click)="save = false">
+      Annuler
+    </button>
+  </div>
+</div>

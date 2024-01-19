@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Accueil ICC</a>
+    <a class="navbar-brand" routerLink="/">Accueil ICC</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#"
+          <a class="nav-link active" aria-current="page" routerLink="/"
             >Home
             <i class="bi bi-house"></i>
           </a>
@@ -24,12 +24,6 @@
           <a class="nav-link" routerLink="/infos"
             >Infos
             <i class="bi bi-info"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/connexion" *ngIf="role === undefined"
-            >Se connecter
-            <i class="bi bi-box-arrow-in-right"></i>
           </a>
         </li>
 
@@ -58,33 +52,42 @@
             <li>
               <a
                 class="dropdown-item"
-                routerLink="/compter"
+                (click)="handleChoice('compter')"
+                routerLink="/count"
                 *ngIf="role !== 'BERGER'"
-                >Compter</a
-              >
+                >Compter <i class="bi bi-plus-slash-minus"></i
+              ></a>
             </li>
             <li>
               <a
                 class="dropdown-item"
+                (click)="handleChoice('add')"
                 routerLink="/save"
                 *ngIf="role !== 'BERGER'"
-                >Enregistrer évènement</a
-              >
+                >Ajouter évènement <i class="bi bi-save"></i
+              ></a>
             </li>
             <li>
               <a
                 class="dropdown-item"
+                (click)="handleChoice('change')"
                 routerLink="/modifier"
                 *ngIf="role !== 'BERGER'"
-                >Modifier évènement</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/search">Rechercher</a>
+                >Modifier évènement <i class="bi bi-arrow-clockwise"></i
+              ></a>
             </li>
             <li>
               <a
                 class="dropdown-item"
+                (click)="handleChoice('search')"
+                routerLink="/search"
+                >Rechercher <i class="bi bi-search"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                (click)="handleChoice('plot')"
                 routerLink="/plot"
                 *ngIf="role !== 'STAR'"
                 >Visualiser</a
@@ -95,21 +98,76 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
       </ul>
       <form class="d-flex" role="search">
         <input
           class="form-control me-2"
           type="search"
-          placeholder="Search"
+          placeholder="Rechercher"
           aria-label="Search"
         />
         <button class="btn btn-outline-success" type="submit">
-          Rechercher
+          <i class="bi bi-search"></i>
         </button>
       </form>
+
+      <button
+        class="btn btn-outline-info ms-1"
+        type="submit"
+        routerLink="/connexion"
+        *ngIf="role === undefined"
+      >
+        Se connecter
+        <i class="bi bi-box-arrow-in-right"></i>
+      </button>
+      <button
+        class="btn btn-outline-danger ms-1"
+        type="button"
+        *ngIf="role !== undefined"
+        data-bs-toggle="modal"
+        data-bs-target="#disconnectModal"
+      >
+        Se deconnecter
+        <i class="bi bi-box-arrow-in-right"></i>
+      </button>
     </div>
   </div>
 </nav>
+
+<!-- déconnecter modal -->
+<div
+  class="modal fade"
+  id="disconnectModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Etes vous sûr?</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">...</div>
+      <div class="modal-footer">
+        <button
+          (click)="role = undefined"
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          routerLink="/"
+        >
+          Oui
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

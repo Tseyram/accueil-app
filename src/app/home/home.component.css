@@ -1,0 +1,31 @@
+/* Default height for small devices */
+#intro-example {
+  height: 400px;
+}
+
+/* Height for devices larger than 992px */
+@media (min-width: 992px) {
+  #intro-example {
+    height: 745px;
+  }
+}
+.img-fluid {
+  position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-position: center top; */
+  background-image: url("../../assets/img/73127744-b0fe-49ba-bce6-5d00a6bf8738.jpg");
+}
+.mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-attachment: fixed;
+  background-color: rgba(0, 0, 0, 0.7)
+}

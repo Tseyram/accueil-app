@@ -11,6 +11,11 @@ import { HomeComponent } from './home/home.component';
 import { InfosComponent } from './infos/infos.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { StaraccountComponent } from './staraccount/staraccount.component';
+import { CountComponent } from './count/count.component';
+import { AddupdateComponent } from './addupdate/addupdate.component';
+import { SearchComponent } from './search/search.component';
+import { PlotComponent } from './plot/plot.component';
+import { CalculateComponent } from './calculate/calculate.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,12 @@ import { StaraccountComponent } from './staraccount/staraccount.component';
     HomeComponent,
     AboutComponent,
     ConnexionComponent,
-    StaraccountComponent
+    StaraccountComponent,
+    CountComponent,
+    AddupdateComponent,
+    SearchComponent,
+    PlotComponent,
+    CalculateComponent
   ],
   imports: [
     BrowserModule,
