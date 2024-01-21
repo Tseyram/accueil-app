@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map } from 'rxjs';
-import { EVENT_TYPE, EventsDTO } from '../model/event.model';
+import { EVENT_TYPE, EventHistory, EventsDTO, PhysicalEvent } from '../model/event.model';
 import { USER_ROLE } from '../model/user.model';
 import { EventsService } from './../services/events.service';
 
@@ -12,8 +12,21 @@ import { EventsService } from './../services/events.service';
 })
 
 export class StaraccountComponent {
+
+
+closeShow() {
+this.show=false;
+}
+
+handleShow(e:PhysicalEvent) {
+this.show=true;
+this.eventToShow=e;
+}
 type!:EVENT_TYPE;
 filtredEvents!:EventsDTO[];
+show:boolean=false;
+eventToShow!:PhysicalEvent;
+
 
 
 
@@ -32,7 +45,7 @@ searchFormGroup!: FormGroup;
 handleDeconnexion() {
   throw new Error('Method not implemented.');
 }
-  events:any;
+  events!:EventHistory;
   original_events:any;
   errorMessage!:string;
   role!:USER_ROLE;

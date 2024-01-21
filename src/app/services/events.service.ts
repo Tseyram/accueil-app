@@ -11,6 +11,10 @@ import { User } from '../model/user.model';
   providedIn: 'root'
 })
 export class EventsService {
+  choice!:string;
+  sendChoice(choice: string):void {
+    this.choice=choice;
+  }
   saveCustomer(customer: any) {
     throw new Error('Method not implemented.');
   }
@@ -45,7 +49,7 @@ if (event.name=='CULTE'){
   filteredEvents.push(event);
   console.log('culte');
 }
-return filteredEvents;
+
   }
 return filteredEvents;
 }

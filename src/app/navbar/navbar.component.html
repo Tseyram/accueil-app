@@ -64,8 +64,8 @@
                 (click)="handleChoice('add')"
                 routerLink="/add"
                 *ngIf="role !== 'BERGER'"
-                >Ajouter évènement <i class="bi bi-save"></i
-              ></a>
+                ><i class="bi bi-save"></i> Ajouter évènement
+              </a>
             </li>
             <li>
               <a
@@ -73,16 +73,18 @@
                 (click)="handleChoice('change')"
                 routerLink="/modify"
                 *ngIf="role !== 'BERGER'"
-                >Modifier évènement <i class="bi bi-arrow-clockwise"></i
-              ></a>
+              >
+                <i class="bi bi-arrow-clockwise"></i>Modifier évènement
+              </a>
             </li>
             <li>
               <a
                 class="dropdown-item"
                 (click)="handleChoice('search')"
                 routerLink="/search"
-                >Rechercher <i class="bi bi-search"></i
-              ></a>
+              >
+                <i class="bi bi-search"></i>Rechercher
+              </a>
             </li>
             <li>
               <a

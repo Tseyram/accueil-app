@@ -12,7 +12,7 @@ import { EventsService } from '../services/events.service';
 
 export class NavbarComponent {
 handleChoice(choice: string) {
-throw new Error('Method not implemented.');
+this.eventService.sendChoice(choice);
 }
 handleSave() {
 throw new Error('Method not implemented.');

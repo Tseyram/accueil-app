@@ -4,7 +4,7 @@ export interface EventHistory {
   currentPage: number;
   totalPages:  number;
   pageSize:    number;
-  eventsDTOs:  EventsDTO[];
+  eventsDTOs:  PhysicalEvent[];
 }
 
 export interface EventsDTO {
@@ -26,7 +26,7 @@ export interface Event {
 
   name:string;
 
-   type:string;
+   type:EVENT_TYPE;
 }
 
 export interface PhysicalEvent extends Event{
@@ -35,7 +35,7 @@ export interface PhysicalEvent extends Event{
     nombreEnfants:number;
     connexions:number;
 
-    typeEvent:string;
+
 }
 
 export interface Culte extends PhysicalEvent {

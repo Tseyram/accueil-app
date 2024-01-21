@@ -52,13 +52,9 @@
                       data-date-format="dd-mm-yyyy"
                       data-link-field="dtp_input1"
                     >
-                      <input
-                        type="date"
-                        class="form-control"
-                        placeholder="A partir de"
-                      />
+                      <input type="date" class="form-control" placeholder="" />
                       <span class="input-group-addon bg-blue"
-                        ><i class="fa fa-th"></i
+                        >A partir de<i class="fa fa-th"></i
                       ></span>
                     </div>
                     <input type="hidden" id="dtp_input1" value="" />
@@ -69,13 +65,9 @@
                       data-date-format="dd-mm-yyyy"
                       data-link-field="dtp_input2"
                     >
-                      <input
-                        type="date"
-                        class="form-control"
-                        placeholder="Jusqu'à"
-                      />
+                      <input type="date" class="form-control" placeholder="" />
                       <span class="input-group-addon bg-blue"
-                        ><i class="fa fa-th"></i
+                        >Jusqu'à<i class="fa fa-th"></i
                       ></span>
                     </div>
                     <button
@@ -103,7 +95,7 @@
                   <th>Debut</th>
                   <th>Fin</th>
                   <th>Conducteur</th>
-                  <th *ngIf="role !== 'BERGER'">Actions</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody *ngIf="isFiltred == false">
@@ -115,6 +107,14 @@
                   <td>{{ e.conducteur }}</td>
                   <td>
                     <ul class="nav nav pills">
+                      <li>
+                        <a
+                          (click)="handleShow(e)"
+                          class="btn btn-info ms-1 mt-1"
+                        >
+                          <i class="bi bi-eye"></i>
+                        </a>
+                      </li>
                       <li *ngIf="role !== 'BERGER'">
                         <a
                           (click)="handleDeleteEvent(e)"
@@ -192,8 +192,66 @@
         </div>
       </div>
     </div>
-    <div class="col col-md-6">
-      <nav class="p-3"></nav>
-    </div>
+
+    <ng-container *ngIf="eventToShow as eS">
+      <div class="col col-md-3" *ngIf="show == true">
+        <div class="card">
+          <div class="card-header">
+            {{ eS.name }} du {{ eS.date | date : "dd-MM-yyyy" }}
+            <button class="btn btn-danger text-end" (click)="closeShow()">
+              x
+            </button>
+          </div>
+          <div class="card-body">
+            <div>
+              <span class="badge rounded-pill text-bg-info">Evenement</span>
+              <label class="">{{ eS.name }} </label>
+            </div>
+            <div>
+              <span class="badge rounded-pill text-bg-info">Date</span>
+              <label class="">{{ eS.date | date : "longDate" }} </label>
+            </div>
+            <div>
+              <span class="badge rounded-pill text-bg-info">Début</span>
+              <label class="">{{ eS.debut }} </label>
+            </div>
+            <div>
+              <span class="badge rounded-pill text-bg-info">Fin</span>
+              <label class="">{{ eS.fin }} </label>
+            </div>
+            <div>
+              <span class="badge rounded-pill text-bg-info">Conducteur</span>
+              <label class="">{{ eS.conducteur }} </label>
+            </div>
+
+            <div>
+              <span class="badge rounded-pill text-bg-info">Hommes</span>
+              <label class="">{{ eS.nombreHommes }} </label>
+            </div>
+            <div>
+              <span class="badge rounded-pill text-bg-info">Femmes</span>
+              <label class="">{{ eS.nombreFemmes }} </label>
+            </div>
+            <div>
+              <span class="badge rounded-pill text-bg-info">Enfants</span>
+              <label class="">{{ eS.nombreEnfants }} </label>
+            </div>
+            <div>
+              <span class="badge rounded-pill text-bg-info">Connexions</span>
+              <label class="">{{ eS.connexions }} </label>
+            </div>
+            <div class="nav nav-pills">
+              <button class="btn btn-danger">Supprimer</button>
+              <button class="btn btn-info">Modifier</button>
+            </div>
+
+            <!-- <label for="">Nombre d'hommes: {{ eS. }} </label>
+            <label for="">Nombre de femmes: {{ e.name }} </label>
+            <label for="">Nombre d'enfants: {{ e.name }} </label>
+            <label for="">Nombre de connexions: {{ e.name }} </label> -->
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>
