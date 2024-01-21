@@ -16,6 +16,7 @@ import { AddupdateComponent } from './addupdate/addupdate.component';
 import { SearchComponent } from './search/search.component';
 import { PlotComponent } from './plot/plot.component';
 import { CalculateComponent } from './calculate/calculate.component';
+import { ModifyComponent } from './modify/modify.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CalculateComponent } from './calculate/calculate.component';
     AddupdateComponent,
     SearchComponent,
     PlotComponent,
-    CalculateComponent
+    CalculateComponent,
+    ModifyComponent
   ],
   imports: [
     BrowserModule,

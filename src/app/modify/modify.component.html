@@ -1,12 +1,13 @@
 <div class="container">
   <div class="card col-md-6 offset-3 mt-2">
-    <div class="card-header">Ajouter Evenement</div>
+    <div class="card-header">Modifier Evenement</div>
     <div class="card-body">
-      <form [formGroup]="addupdateFormGroup" (ngSubmit)="handleaddUpdate(true)">
+      <form [formGroup]="modifyFormGroup" (ngSubmit)="handleModify(true)">
         <div class="mb-3">
           <label class="form-label">Date: </label>
           <input type="date" formControlName="date" class="form-control" />
         </div>
+        <button class="btn btn-info">Rechercher</button>
         <div class="mb-3">
           <label class="form-label">Type:</label>
           <select class="form-select" aria-label="Default select example">
@@ -22,9 +23,7 @@
             <option value="9">MCEP</option>
             <option value="10">MIJ</option>
             <option value="11">MJI</option>
-            <option value="12">STAR</option>
-            <option value="13">Coktail de Bienvenue</option>
-            <option value="14">Autre</option>
+            <option value="12">Autre</option>
           </select>
         </div>
         <div class="mb-3">
@@ -166,7 +165,7 @@
             class="form-control"
           />
         </div>
-        <button [disabled]="!addupdateFormGroup" class="btn btn-info">
+        <button [disabled]="!modifyFormGroup" class="btn btn-info">
           Proposer
         </button>
       </form>

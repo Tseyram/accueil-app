@@ -1,1 +1,85 @@
-<p>search works!</p>
+<div class="container">
+  <div class="row">
+    <div class="card col-md-6 offset-3 mt-2">
+      <div class="card-header">Rechercher</div>
+      <div class="card-body">
+        <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearch()">
+          <div class="mb-3">
+            <label class="form-label">Vous recherchez : </label>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">quel(s) évènement(s)? : </label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>choix</option>
+              <option value="1">Culte</option>
+              <option value="2">TPA</option>
+              <option value="3">MHI</option>
+              <option value="4">MFI</option>
+              <option value="5">MJI</option>
+              <option value="6">Corporate(24H,48H...)</option>
+              <option value="7">Séminaire</option>
+              <option value="8">Baptème</option>
+              <option value="9">MCEP</option>
+              <option value="10">MIJ</option>
+              <option value="11">MJI</option>
+              <option value="12">STAR</option>
+              <option value="13">Coktail de Bienvenue</option>
+              <option value="14">Autre</option>
+            </select>
+            <div class="mb-3">
+              <label class="form-label">par ?: </label>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>filtre</option>
+                <option value="1" (click)="choice = 'date'">date</option>
+                <option value="2" (click)="choice = 'periode'">période</option>
+                <option value="3" (click)="choice = 'conducteur'">
+                  conducteur
+                </option>
+                <option value="4" (click)="choice = 'titre'">titre</option>
+                <option value="5" (click)="choice = 'moderateur'">
+                  modérateur
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3" *ngIf="choice == 'date'">
+            <label class="form-label">Quel date?: </label>
+            <input type="date" formControlName="nom" class="form-control" />
+          </div>
+          <div class="mb-3" *ngIf="choice == 'periode'">
+            <label class="form-label">Quelle période?: </label>
+            <div class="nav nav-pills">
+              <label for="">A partir de :</label>
+              <input type="date" formControlName="nom" class="form-control" />
+            </div>
+            <div class="nav nav-pills">
+              <label for="">Jusqu'à :</label>
+              <input type="date" formControlName="nom" class="form-control" />
+            </div>
+          </div>
+          <div class="mb-3" *ngIf="choice === 'conducteur'">
+            <label class="form-label">Entrez le nom du conducteur: </label>
+            <input type="text" formControlName="nom" class="form-control" />
+          </div>
+          <div class="mb-3" *ngIf="choice === 'moderateur'">
+            <label class="form-label">Entrez le nom de la modératrice: </label>
+            <input type="text" formControlName="nom" class="form-control" />
+          </div>
+          <div class="mb-3" *ngIf="choice === 'titre'">
+            <label class="form-label">Entrez le titre: </label>
+            <input type="date" formControlName="titre" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <button class="btn btn-outline-success ms-1" type="submit">
+              Rechercher
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card col-md-6 offset-3 mt-2">
+      <div class="card-header">Résultats</div>
+      <div class="card-body"></div>
+    </div>
+  </div>
+</div>

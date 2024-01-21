@@ -19,37 +19,26 @@
                   <div class="col-6 text-start">
                     <p>Par type:</p>
 
-                    <a
-                      class="nav-link dropdown-toggle"
-                      href="#"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      aria-disabled="true"
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
                     >
-                      Evenement
-                    </a>
-
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a class="dropdown-item">Culte </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item">TPA </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item">MHI </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item">MFI</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item">MJI</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item">corporate(24H,48H...)</a>
-                      </li>
-                    </ul>
+                      <option selected>choix</option>
+                      <option value="EVENT_TYPE.CULTE">Culte</option>
+                      <option value="2">TPA</option>
+                      <option value="3">MHI</option>
+                      <option value="4">MFI</option>
+                      <option value="5">MJI</option>
+                      <option value="6">Corporate(24H,48H...)</option>
+                      <option value="7">Séminaire</option>
+                      <option value="8">Baptème</option>
+                      <option value="9">MCEP</option>
+                      <option value="10">MIJ</option>
+                      <option value="11">MJI</option>
+                      <option value="12">STAR</option>
+                      <option value="13">Coktail de Bienvenue</option>
+                      <option value="14">Autre</option>
+                    </select>
                   </div>
                   <!-- END FILTER BY CATEGORY -->
 
@@ -64,7 +53,7 @@
                       data-link-field="dtp_input1"
                     >
                       <input
-                        type="text"
+                        type="date"
                         class="form-control"
                         placeholder="A partir de"
                       />
@@ -81,7 +70,7 @@
                       data-link-field="dtp_input2"
                     >
                       <input
-                        type="text"
+                        type="date"
                         class="form-control"
                         placeholder="Jusqu'à"
                       />
@@ -89,7 +78,12 @@
                         ><i class="fa fa-th"></i
                       ></span>
                     </div>
-                    <button class="btn btn-outline-info mt-1">Search</button>
+                    <button
+                      class="btn btn-outline-info mt-1"
+                      (submit)="handleSearchEvents()"
+                    >
+                      Filtrer
+                    </button>
                     <input type="hidden" id="dtp_input2" value="" />
                   </div>
                   <!-- END FILTER BY DATE -->
@@ -98,7 +92,10 @@
             </div>
 
             <!-- END FILTERS -->
-            <table class="table table-hover">
+            <table
+              class="table table-hover"
+              aria-label="evenements en présentiel"
+            >
               <thead>
                 <tr>
                   <th>Date</th>
@@ -109,8 +106,37 @@
                   <th *ngIf="role !== 'BERGER'">Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody *ngIf="isFiltred == false">
                 <tr *ngFor="let e of events.eventsDTOs">
+                  <td>{{ e.date | date : "mediumDate" }}</td>
+                  <td>{{ e.name }}</td>
+                  <td>{{ e.debut }}</td>
+                  <td>{{ e.fin }}</td>
+                  <td>{{ e.conducteur }}</td>
+                  <td>
+                    <ul class="nav nav pills">
+                      <li *ngIf="role !== 'BERGER'">
+                        <a
+                          (click)="handleDeleteEvent(e)"
+                          class="btn btn-danger ms-1 mt-1"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </a>
+                      </li>
+                      <li *ngIf="role !== 'BERGER'">
+                        <a
+                          (click)="handleUpdate(e)"
+                          class="btn btn-info ms-1 mt-1"
+                        >
+                          <i class="bi bi-arrow-clockwise"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="isFiltred == true">
+                <tr *ngFor="let e of filtredEvents">
                   <td>{{ e.date | date : "mediumDate" }}</td>
                   <td>{{ e.name }}</td>
                   <td>{{ e.debut }}</td>
@@ -157,7 +183,9 @@
               </li>
             </ul>
             <div class="col col-md-6 text-center mt-2">
-              <button class="btn btn-primary" type="button">+</button>
+              <button class="btn btn-primary" type="button" routerLink="/add">
+                +
+              </button>
               <label for=""> Ajouter un évènement</label>
             </div>
           </div>
@@ -165,44 +193,7 @@
       </div>
     </div>
     <div class="col col-md-6">
-      <nav class="p-3">
-        <!-- <ul class="nav nav-pills">
-          <li>
-            <button class="btn btn-outline-info ms-1">
-              COMPTER
-              <i class="bi bi-plus-slash-minus"></i>
-            </button>
-          </li>
-          <li>
-            <button class="btn btn-outline-info ms-1">
-              ENREGISTRER UN EVENEMENT
-              <i class="bi bi-save"></i>
-            </button>
-          </li>
-          <li>
-            <button class="btn btn-outline-info ms-1">
-              MODIFIER UN EVENEMENT
-              <i class="bi bi-arrow-clockwise"></i>
-            </button>
-          </li>
-          <li>
-            <button class="btn btn-outline-info ms-1">
-              RECHERCHER UN EVENEMENT
-              <i class="bi bi-search"></i>
-            </button>
-          </li>
-          <li>
-            <button
-              (click)="handleDeconnexion()"
-              class="btn btn-outline-danger ms-1"
-            >
-              SE DECONNECTER
-              <i class="bi bi-box-arrow-left"></i>
-            </button> -->
-        <!-- </li>
-        </ul> -->
-      </nav>
+      <nav class="p-3"></nav>
     </div>
   </div>
 </div>
-<!-- <-- rechercher évenements-> -->

@@ -1,1 +1,82 @@
-<p>calculate works!</p>
+<div class="container">
+  <div class="row">
+    <div class="card col-md-6 offset-3 mt-2">
+      <div class="card-header">Calculer</div>
+      <div class="card-body">
+        <form [formGroup]="calculateFormGroup" (ngSubmit)="handleCalculate()">
+          <div class="mb-3">
+            <label class="form-label">Vous voulez : </label>
+          </div>
+          <div class="mb-3">
+            <select class="form-select" aria-label="Default select example">
+              <option selected>choix</option>
+              <option value="1" (click)="choice = 'Valeur'">
+                retrouver une valeur
+              </option>
+              <option value="2" (click)="choice = 'NoValue'">
+                calculer une moyenne
+              </option>
+              <option value="3" (click)="choice = 'NoValue'">
+                calculer une somme
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> du nombre: </label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>choix:</option>
+              <option value="1">d'hommes ayant participé</option>
+              <option value="2">de femmes ayant participé</option>
+              <option value="3">d'enfants ayant participé</option>
+              <option value="4">de connexions</option>
+              <option value="5">de nouveaux hommes</option>
+              <option value="6">de nouvelles femmes</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">à quel évènement? : </label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>choix</option>
+              <option value="1">Culte</option>
+              <option value="2">TPA</option>
+              <option value="3">MHI</option>
+              <option value="4">MFI</option>
+              <option value="5">MJI</option>
+              <option value="6">Corporate(24H,48H...)</option>
+              <option value="7">Séminaire</option>
+              <option value="8">Baptème</option>
+              <option value="9">MCEP</option>
+              <option value="10">MIJ</option>
+              <option value="11">MJI</option>
+              <option value="12">Autre</option>
+            </select>
+          </div>
+          <div class="mb-3" *ngIf="choice === 'Valeur'">
+            <label class="form-label">Quel date?: </label>
+            <input type="date" formControlName="nom" class="form-control" />
+          </div>
+          <div class="mb-3" *ngIf="choice == 'NoValue'">
+            <label class="form-label">Quelle période?: </label>
+            <div class="nav nav-pills">
+              <label for="">A partir de :</label>
+              <input type="date" formControlName="nom" class="form-control" />
+            </div>
+            <div class="nav nav-pills">
+              <label for="">Jusqu'à :</label>
+              <input type="date" formControlName="nom" class="form-control" />
+            </div>
+          </div>
+          <div class="mb-3">
+            <button class="btn btn-outline-success ms-1" type="submit">
+              Calculer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card col-md-6 offset-3 mt-2">
+      <div class="card-header">Résultats</div>
+      <div class="card-body"></div>
+    </div>
+  </div>
+</div>

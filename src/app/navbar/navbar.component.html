@@ -62,7 +62,7 @@
               <a
                 class="dropdown-item"
                 (click)="handleChoice('add')"
-                routerLink="/save"
+                routerLink="/add"
                 *ngIf="role !== 'BERGER'"
                 >Ajouter évènement <i class="bi bi-save"></i
               ></a>
@@ -71,7 +71,7 @@
               <a
                 class="dropdown-item"
                 (click)="handleChoice('change')"
-                routerLink="/modifier"
+                routerLink="/modify"
                 *ngIf="role !== 'BERGER'"
                 >Modifier évènement <i class="bi bi-arrow-clockwise"></i
               ></a>
