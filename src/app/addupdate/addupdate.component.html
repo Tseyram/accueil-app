@@ -2,7 +2,7 @@
   <div class="card col-md-6 offset-3 mt-2">
     <div class="card-header">Ajouter Evenement</div>
     <div class="card-body">
-      <form [formGroup]="addupdateFormGroup" (ngSubmit)="handleaddUpdate(true)">
+      <form [formGroup]="addupdateFormGroup" (ngSubmit)="handleaddUpdate()">
         <div class="mb-3">
           <label class="form-label">Date: </label>
           <input type="date" formControlName="date" class="form-control" />
@@ -84,72 +84,75 @@
             class="form-control"
           />
         </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Nouveaux: </label>
-          <input
-            type=" number"
-            formControlName="nouveauxH"
-            placeholder="0"
-            class="form-control"
-          />
-          <label class="form-label">H </label>
-          <input
-            type=" number"
-            formControlName="nouveauxF"
-            placeholder="0"
-            class="form-control"
-          />
-          <label class="form-label">F </label>
-          <label class="form-label"> Total: </label>
-        </div>
+        <ng-container *ngIf="isCulte == true">
+          <div class="mb-3">
+            <label class="form-label">Nouveaux: </label>
+            <input
+              type=" number"
+              formControlName="nouveauxH"
+              placeholder="0"
+              class="form-control"
+            />
+            <label class="form-label">H </label>
+            <input
+              type=" number"
+              formControlName="nouveauxF"
+              placeholder="0"
+              class="form-control"
+            />
+            <label class="form-label">F </label>
+            <label class="form-label"> Total: </label>
+          </div>
+          <div *ngIf="isCulte == true" class="mb-3">
+            <label class="form-label">Hommes intercession: </label>
+            <input
+              type="number"
+              formControlName="hommesIntercession"
+              placeholder="0"
+              class="form-control"
+            />
+          </div>
+          <div *ngIf="isCulte == true" class="mb-3">
+            <label class="form-label">Femmes intercession: </label>
+            <input
+              type="number"
+              formControlName="femmesIntercession"
+              placeholder="0"
+              class="form-control"
+            />
+          </div>
+          <div *ngIf="isCulte == true" class="mb-3">
+            <label class="form-label">Enfants intercession: </label>
+            <input
+              type="number"
+              formControlName="enfantsIntercession"
+              placeholder="0"
+              class="form-control"
+            />
+          </div>
+          <div *ngIf="isCulte == true" class="mb-3">
+            <label class="form-label">Conducteur intercession: </label>
+            <input
+              type="text"
+              formControlName="conducteurIntercession"
+              class="form-control"
+            />
+          </div>
+          <div *ngIf="isCulte == true" class="mb-3">
+            <label class="form-label">Enfants MIJ: </label>
+            <input
+              type="number"
+              formControlName="mij"
+              placeholder="0"
+              class="form-control"
+            />
+          </div>
+        </ng-container>
         <div class="mb-3">
           <label class="form-label">Titre: </label>
           <input type="text" formControlName="titre" class="form-control" />
         </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Hommes intercession: </label>
-          <input
-            type="number"
-            formControlName="hommesIntercession"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Femmes intercession: </label>
-          <input
-            type="number"
-            formControlName="femmesIntercession"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Enfants intercession: </label>
-          <input
-            type="number"
-            formControlName="enfantsIntercession"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Conducteur intercession: </label>
-          <input
-            type="text"
-            formControlName="conducteurIntercession"
-            class="form-control"
-          />
-        </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Enfants MIJ: </label>
-          <input
-            type="number"
-            formControlName="mij"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
+
         <div class="mb-3">
           <label class="form-label">Modérateur: </label>
           <input
@@ -167,7 +170,7 @@
           />
         </div>
         <button [disabled]="!addupdateFormGroup" class="btn btn-info">
-          Proposer
+          Proposer ajout
         </button>
       </form>
     </div>

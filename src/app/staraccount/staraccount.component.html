@@ -24,20 +24,35 @@
                       aria-label="Default select example"
                     >
                       <option selected>choix</option>
-                      <option value="EVENT_TYPE.CULTE">Culte</option>
-                      <option value="2">TPA</option>
-                      <option value="3">MHI</option>
-                      <option value="4">MFI</option>
-                      <option value="5">MJI</option>
-                      <option value="6">Corporate(24H,48H...)</option>
-                      <option value="7">Séminaire</option>
-                      <option value="8">Baptème</option>
-                      <option value="9">MCEP</option>
-                      <option value="10">MIJ</option>
-                      <option value="11">MJI</option>
-                      <option value="12">STAR</option>
-                      <option value="13">Coktail de Bienvenue</option>
-                      <option value="14">Autre</option>
+                      <option value="1" onclick="attributeType(1)">
+                        Culte
+                      </option>
+                      <option value="2" onclick="attributeType(2)">TPA</option>
+                      <option value="3" onclick="attributeType(3)">MHI</option>
+                      <option value="4" onclick="attributeType(4)">MFI</option>
+                      <option value="5" onclick="attributeType(5)">MJI</option>
+                      <option value="6" onclick="attributeType(6)">
+                        Corporate(24H,48H...)
+                      </option>
+                      <option value="7" onclick="attributeType(7)">
+                        Séminaire
+                      </option>
+                      <option value="8" onclick="attributeType(8)">
+                        Baptème
+                      </option>
+                      <option value="9" onclick="attributeType(9)">MCEP</option>
+                      <option value="10" onclick="attributeType(10)">
+                        MIJ
+                      </option>
+                      <option value="11" onclick="attributeType(11)">
+                        STAR
+                      </option>
+                      <option value="12" onclick="attributeType(12)">
+                        Coktail de Bienvenue
+                      </option>
+                      <option value="13" onclick="attributeType(13)">
+                        Autre
+                      </option>
                     </select>
                   </div>
                   <!-- END FILTER BY CATEGORY -->
@@ -72,7 +87,7 @@
                     </div>
                     <button
                       class="btn btn-outline-info mt-1"
-                      (submit)="handleSearchEvents()"
+                      (click)="handleSearchEvents()"
                     >
                       Filtrer
                     </button>
@@ -84,104 +99,141 @@
             </div>
 
             <!-- END FILTERS -->
-            <table
-              class="table table-hover"
-              aria-label="evenements en présentiel"
-            >
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Evenement</th>
-                  <th>Debut</th>
-                  <th>Fin</th>
-                  <th>Conducteur</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody *ngIf="isFiltred == false">
-                <tr *ngFor="let e of events.eventsDTOs">
-                  <td>{{ e.date | date : "mediumDate" }}</td>
-                  <td>{{ e.name }}</td>
-                  <td>{{ e.debut }}</td>
-                  <td>{{ e.fin }}</td>
-                  <td>{{ e.conducteur }}</td>
-                  <td>
-                    <ul class="nav nav pills">
-                      <li>
-                        <a
-                          (click)="handleShow(e)"
-                          class="btn btn-info ms-1 mt-1"
-                        >
-                          <i class="bi bi-eye"></i>
-                        </a>
-                      </li>
-                      <li *ngIf="role !== 'BERGER'">
-                        <a
-                          (click)="handleDeleteEvent(e)"
-                          class="btn btn-danger ms-1 mt-1"
-                        >
-                          <i class="bi bi-trash"></i>
-                        </a>
-                      </li>
-                      <li *ngIf="role !== 'BERGER'">
-                        <a
-                          (click)="handleUpdate(e)"
-                          class="btn btn-info ms-1 mt-1"
-                        >
-                          <i class="bi bi-arrow-clockwise"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody *ngIf="isFiltred == true">
-                <tr *ngFor="let e of filtredEvents">
-                  <td>{{ e.date | date : "mediumDate" }}</td>
-                  <td>{{ e.name }}</td>
-                  <td>{{ e.debut }}</td>
-                  <td>{{ e.fin }}</td>
-                  <td>{{ e.conducteur }}</td>
-                  <td>
-                    <ul class="nav nav pills">
-                      <li *ngIf="role !== 'BERGER'">
-                        <a
-                          (click)="handleDeleteEvent(e)"
-                          class="btn btn-danger ms-1 mt-1"
-                        >
-                          <i class="bi bi-trash"></i>
-                        </a>
-                      </li>
-                      <li *ngIf="role !== 'BERGER'">
-                        <a
-                          (click)="handleUpdate(e)"
-                          class="btn btn-info ms-1 mt-1"
-                        >
-                          <i class="bi bi-arrow-clockwise"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <ul class="nav nav-pills">
-              <li
-                *ngFor="
-                  let item of [].constructor(events.totalPages);
-                  let page = index
-                "
+            <ng-container *ngIf="isFiltred == false">
+              <table
+                class="table table-hover"
+                aria-label="evenements en présentiel"
               >
-                <a
-                  [ngClass]="
-                    page == currentPage ? 'btn-info' : 'btn-outline-info btn'
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Evenement</th>
+                    <th>Debut</th>
+                    <th>Fin</th>
+                    <th>Conducteur</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let e of events.eventsDTOs">
+                    <td>{{ e.date | date : "mediumDate" }}</td>
+                    <td>{{ e.name }}</td>
+                    <td>{{ e.debut }}</td>
+                    <td>{{ e.fin }}</td>
+                    <td>{{ e.conducteur }}</td>
+                    <td>
+                      <ul class="nav nav pills">
+                        <li>
+                          <a
+                            (click)="handleShow(e)"
+                            class="btn btn-info ms-1 mt-1"
+                          >
+                            <i class="bi bi-eye"></i>
+                          </a>
+                        </li>
+                        <li *ngIf="role !== 'BERGER'">
+                          <a
+                            (click)="handleDeleteEvent(e)"
+                            class="btn btn-danger ms-1 mt-1"
+                          >
+                            <i class="bi bi-trash"></i>
+                          </a>
+                        </li>
+                        <li *ngIf="role !== 'BERGER'">
+                          <a
+                            (click)="handleUpdate(e)"
+                            class="btn btn-info ms-1 mt-1"
+                          >
+                            <i class="bi bi-arrow-clockwise"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ul class="nav nav-pills">
+                <li
+                  *ngFor="
+                    let item of [].constructor(events.totalPages);
+                    let page = index
                   "
-                  (click)="gotToPage(page)"
-                  class="btn ms-1 mt-1"
-                  >{{ page }}</a
                 >
-              </li>
-            </ul>
+                  <a
+                    [ngClass]="
+                      page == currentPage ? 'btn-info' : 'btn-outline-info btn'
+                    "
+                    (click)="gotToPage(page)"
+                    class="btn ms-1 mt-1"
+                    >{{ page }}</a
+                  >
+                </li>
+              </ul>
+            </ng-container>
+            <ng-container *ngIf="isFiltred == true">
+              <table
+                class="table table-hover"
+                aria-label="evenements en présentiel"
+              >
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Evenement</th>
+                    <th>Debut</th>
+                    <th>Fin</th>
+                    <th>Conducteur</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let e of filtredEvents.eventsDTOs">
+                    <td>{{ e.date | date : "mediumDate" }}</td>
+                    <td>{{ e.name }}</td>
+                    <td>{{ e.debut }}</td>
+                    <td>{{ e.fin }}</td>
+                    <td>{{ e.conducteur }}</td>
+                    <td>
+                      <ul class="nav nav pills">
+                        <li *ngIf="role !== 'BERGER'">
+                          <a
+                            (click)="handleDeleteEvent(e)"
+                            class="btn btn-danger ms-1 mt-1"
+                          >
+                            <i class="bi bi-trash"></i>
+                          </a>
+                        </li>
+                        <li *ngIf="role !== 'BERGER'">
+                          <a
+                            (click)="handleUpdate(e)"
+                            class="btn btn-info ms-1 mt-1"
+                          >
+                            <i class="bi bi-arrow-clockwise"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ul class="nav nav-pills">
+                <li
+                  *ngFor="
+                    let item of [].constructor(filtredEvents.totalPages);
+                    let page = index
+                  "
+                >
+                  <a
+                    [ngClass]="
+                      page == currentPage ? 'btn-info' : 'btn-outline-info btn'
+                    "
+                    (click)="gotToPage(page)"
+                    class="btn ms-1 mt-1"
+                    >{{ page }}</a
+                  >
+                </li>
+              </ul>
+            </ng-container>
+
             <div class="col col-md-6 text-center mt-2">
               <button class="btn btn-primary" type="button" routerLink="/add">
                 +

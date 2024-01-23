@@ -11,16 +11,18 @@ import { EventsService } from '../services/events.service';
 })
 export class AddupdateComponent {
 
-handleaddUpdate(add:boolean) {
-if(add){
+handleaddUpdate() {
+
   let event:PhysicalEvent=this.addupdateFormGroup.value;
-this.eventService.saveEvent(event).subscribe({
-  next: data=> {alert("Evenement proposé en ajout");
+
+  if(this.isCulte==true){
+this.eventService.saveCulte(event).subscribe({
+  next: (data:any)=> {alert("Evenement proposé en ajout");
 this.addupdateFormGroup.reset();
 this.route.navigateByUrl("/staraccount");},
-  error:err=> {console.log(err); }
+  error:(err:any)=> {console.log(err); }
 });
-}
+  }
 }
 isCulte:boolean=false;
 addupdateFormGroup!: FormGroup;
@@ -42,7 +44,10 @@ ngOnInit(): void {
     mij:this.fb.control(0),
     connexions:this.fb.control(0),
     moderateur:this.fb.control(""),
-    conducteurIntercession:this.fb.control("")
+    conducteurIntercession:this.fb.control(""),
+    nouveauxF:this.fb.control(0),
+    nouveauxH:this.fb.control(0),
+    commentaire:this.fb.control("")
 
   })
 }

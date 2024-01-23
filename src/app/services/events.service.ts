@@ -1,9 +1,9 @@
-import { EventHistory, EventsDTO } from './../model/event.model';
+import { EventHistory, PhysicalEvent } from './../model/event.model';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { EVENT_TYPE, PhysicalEvent } from '../model/event.model';
+import { EVENT_TYPE } from '../model/event.model';
 import { userList } from '../model/fake.data';
 import { User } from '../model/user.model';
 
@@ -11,6 +11,10 @@ import { User } from '../model/user.model';
   providedIn: 'root'
 })
 export class EventsService {
+
+  delete(id:any) {
+    return this.http.delete("http://localhost:8081/events/"+id);
+  }
   choice!:string;
   sendChoice(choice: string):void {
     this.choice=choice;
@@ -30,8 +34,8 @@ export class EventsService {
 public getEventHistory(page: number, size: number): Observable<EventHistory> {
   return this.http.get<EventHistory>("http://localhost:8081/events/history?page="+page+"&size="+size)
 }
-public saveEvent(event:PhysicalEvent): Observable<PhysicalEvent> {
-  return this.http.post<PhysicalEvent>("http://localhost:8081/events", event)
+public saveCulte(event:any): Observable<any> {
+  return this.http.post("http://localhost:8081/events/cultes", event)
 }
 
 public handleUserConnexion(username:string, password:string):User|null{
@@ -42,15 +46,9 @@ for(let user of userList){
 }
 return null;
 }
-public filterByType(type:EVENT_TYPE,events:EventHistory):EventsDTO[]{
-let filteredEvents:EventsDTO[]=[];
-  for (let event of events.eventsDTOs){
-if (event.name=='CULTE'){
-  filteredEvents.push(event);
-  console.log('culte');
+public filterByType(type:EVENT_TYPE):Observable<Array<PhysicalEvent>>{
+  return this.http.get<Array<PhysicalEvent>>("http://localhost:8081/events/"+type);
 }
 
   }
-return filteredEvents;
-}
-}
+
