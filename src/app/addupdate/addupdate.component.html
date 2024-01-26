@@ -9,22 +9,26 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Type:</label>
-          <select class="form-select" aria-label="Default select example">
+          <select
+            class="form-select"
+            formControlName="type"
+            aria-label="Default select example"
+          >
             <option selected>choix</option>
-            <option value="1" (click)="isCulte = true">Culte</option>
-            <option value="2">TPA</option>
-            <option value="3">MHI</option>
-            <option value="4">MFI</option>
-            <option value="5">MJI</option>
-            <option value="6">Corporate(24H,48H...)</option>
-            <option value="7">Séminaire</option>
-            <option value="8">Baptème</option>
-            <option value="9">MCEP</option>
-            <option value="10">MIJ</option>
-            <option value="11">MJI</option>
-            <option value="12">STAR</option>
-            <option value="13">Coktail de Bienvenue</option>
-            <option value="14">Autre</option>
+            <option [ngValue]="1">Culte</option>
+            <option [ngValue]="2">TPA</option>
+            <option [ngValue]="3">MHI</option>
+            <option [ngValue]="4">MFI</option>
+            <option [ngValue]="5">MJI</option>
+            <option [ngValue]="6">Corporate(24H,48H...)</option>
+            <option [ngValue]="7">Séminaire</option>
+            <option [ngValue]="8">Baptème</option>
+            <option [ngValue]="9">MCEP</option>
+            <option [ngValue]="10">MIJ</option>
+            <option [ngValue]="11">MJI</option>
+            <option [ngValue]="12">STAR</option>
+            <option [ngValue]="13">Coktail de Bienvenue</option>
+            <option [ngValue]="14">Autre</option>
           </select>
         </div>
         <div class="mb-3">

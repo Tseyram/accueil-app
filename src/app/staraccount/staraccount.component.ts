@@ -43,24 +43,24 @@ handleUpdate(_t38: any) {
 throw new Error('Method not implemented.');
 }
 handleDeleteEvent(e: PhysicalEvent) {
-  console.log(this.events.eventsDTOs.length);
-  this.events.eventsDTOs=this.events.eventsDTOs.slice(this.events.eventsDTOs.indexOf(e),1);
-  console.log(this.events.eventsDTOs.length);
-  this.events.totalPages=Math.ceil(this.events.eventsDTOs.length/this.events.pageSize);
-  console.log(this.events.totalPages);
-  let conf =confirm("Are you sure?")
-  if (!conf) return;
-this.eventsService.delete(e.id).subscribe({
-  next: resp=>{this.events.eventsDTOs=this.events.eventsDTOs.pipe(map(
-    (data:EventHistory)=> {let index=data.eventsDTOs.indexOf(e);
-      data.eventsDTOs=data.eventsDTOs.slice(index,1)
-      return data;
+  // console.log(this.events.eventsDTOs.length);
+  // this.events.eventsDTOs=this.events.eventsDTOs.slice(this.events.eventsDTOs.indexOf(e),1);
+  // console.log(this.events.eventsDTOs.length);
+  // this.events.totalPages=Math.ceil(this.events.eventsDTOs.length/this.events.pageSize);
+  // console.log(this.events.totalPages);
+//   let conf =confirm("Are you sure?")
+//   if (!conf) return;
+// this.eventsService.delete(e.id).subscribe({
+//   next: resp=>{this.events.eventsDTOs=this.events.eventsDTOs.pipe(map(
+//     (data:EventHistory)=> {let index=data.eventsDTOs.indexOf(e);
+//       data.eventsDTOs=data.eventsDTOs.slice(index,1)
+//       return data;
 
-    })
+//     })
 
-  );},
-  error:err=>{console.log(err);}
-})
+//   );},
+//   error:err=>{console.log(err);}
+// })
 }
 handleSearchEvents() {
 console.log('hi');
