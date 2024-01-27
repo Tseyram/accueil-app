@@ -14,7 +14,7 @@ export interface EventsDTO {
   debut:      Time;
   fin:        Time;
   name:       string;
-  type:       EVENT_TYPE;
+  typeEvent:       EVENT_TYPE;
 }
 
 export interface Event {
@@ -26,7 +26,7 @@ export interface Event {
 
   name:string;
 
-   type:EVENT_TYPE;
+   typeEvent:EVENT_TYPE;
 }
 
 export interface PhysicalEvent extends Event{

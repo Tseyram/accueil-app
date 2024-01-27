@@ -9,63 +9,74 @@
           </div>
           <div class="mb-3">
             <label class="form-label">quel(s) évènement(s)? : </label>
-            <select class="form-select" aria-label="Default select example">
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="typeEvent"
+            >
               <option selected>choix</option>
-              <option value="1">Culte</option>
-              <option value="2">TPA</option>
-              <option value="3">MHI</option>
-              <option value="4">MFI</option>
-              <option value="5">MJI</option>
-              <option value="6">Corporate(24H,48H...)</option>
-              <option value="7">Séminaire</option>
-              <option value="8">Baptème</option>
-              <option value="9">MCEP</option>
-              <option value="10">MIJ</option>
-              <option value="11">MJI</option>
-              <option value="12">STAR</option>
-              <option value="13">Coktail de Bienvenue</option>
-              <option value="14">Autre</option>
+              <option [ngValue]="1">Culte</option>
+              <option [ngValue]="2">TPA</option>
+              <option [ngValue]="3">MHI</option>
+              <option [ngValue]="4">MFI</option>
+              <option [ngValue]="5">MJI</option>
+              <option [ngValue]="6">Corporate(24H,48H...)</option>
+              <option [ngValue]="7">Séminaire</option>
+              <option [ngValue]="8">Baptème</option>
+              <option [ngValue]="9">MCEP</option>
+              <option [ngValue]="10">MIJ</option>
+              <option [ngValue]="11">STAR</option>
+              <option [ngValue]="12">Coktail de Bienvenue</option>
+              <option [ngValue]="13">Autre</option>
             </select>
             <div class="mb-3">
               <label class="form-label">par ?: </label>
-              <select class="form-select" aria-label="Default select example">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                formControlName="filtre"
+              >
                 <option selected>filtre</option>
-                <option value="1" (click)="choice = 'date'">date</option>
-                <option value="2" (click)="choice = 'periode'">période</option>
-                <option value="3" (click)="choice = 'conducteur'">
-                  conducteur
-                </option>
-                <option value="4" (click)="choice = 'titre'">titre</option>
-                <option value="5" (click)="choice = 'moderateur'">
-                  modérateur
-                </option>
+                <option [ngValue]="1">date</option>
+                <option [ngValue]="2">période</option>
+                <option [ngValue]="3">conducteur</option>
+                <option [ngValue]="4">titre</option>
+                <option [ngValue]="5">modérateur</option>
               </select>
             </div>
           </div>
-          <div class="mb-3" *ngIf="choice == 'date'">
+          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value === 1">
             <label class="form-label">Quel date?: </label>
-            <input type="date" formControlName="nom" class="form-control" />
+            <input type="date" formControlName="date" class="form-control" />
           </div>
-          <div class="mb-3" *ngIf="choice == 'periode'">
+          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value === 2">
             <label class="form-label">Quelle période?: </label>
             <div class="nav nav-pills">
               <label for="">A partir de :</label>
-              <input type="date" formControlName="nom" class="form-control" />
+              <input type="date" formControlName="debut" class="form-control" />
             </div>
             <div class="nav nav-pills">
               <label for="">Jusqu'à :</label>
-              <input type="date" formControlName="nom" class="form-control" />
+              <input type="date" formControlName="fin" class="form-control" />
             </div>
           </div>
-          <div class="mb-3" *ngIf="choice === 'conducteur'">
+          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value === 3">
             <label class="form-label">Entrez le nom du conducteur: </label>
-            <input type="text" formControlName="nom" class="form-control" />
+            <input
+              type="text"
+              formControlName="conducteur"
+              class="form-control"
+            />
           </div>
-          <div class="mb-3" *ngIf="choice === 'moderateur'">
+          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value === 4">
             <label class="form-label">Entrez le nom de la modératrice: </label>
-            <input type="text" formControlName="nom" class="form-control" />
+            <input
+              type="text"
+              formControlName="moderateur"
+              class="form-control"
+            />
           </div>
-          <div class="mb-3" *ngIf="choice === 'titre'">
+          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value === 5">
             <label class="form-label">Entrez le titre: </label>
             <input type="date" formControlName="titre" class="form-control" />
           </div>

@@ -10,22 +10,38 @@ import { EventsService } from '../services/events.service';
   styleUrl: './addupdate.component.css'
 })
 export class AddupdateComponent {
+handleCancel() {
+  this.route.navigateByUrl("/staraccount");
+}
 type: any;
-attributeType(arg0: number) {
+attributeType(arg0: number):EVENT_TYPE  {
   let typeList:EVENT_TYPE[]=[EVENT_TYPE.CULTE,EVENT_TYPE.TPA,EVENT_TYPE.MHI,EVENT_TYPE.MFI,
     EVENT_TYPE.MJI,EVENT_TYPE.CORPORATE,EVENT_TYPE.SEMINAIRE,EVENT_TYPE.BAPTEME,
     EVENT_TYPE.MCEP,EVENT_TYPE.MIJ,EVENT_TYPE.STAR,EVENT_TYPE.BIENVENUE,
     EVENT_TYPE.AUTRE];
-    this.type=typeList[arg0-1];
-    console.log('attribution',this.type)
+    console.log('attribution')
+    return typeList[arg0-1];
+
   }
 handleaddUpdate() {
 
  let event:PhysicalEvent=this.addupdateFormGroup.value;
   // event.type=
 
-  if(this.isCulte==true){
+  if(this.addupdateFormGroup.get("typeEvent")!.value==1){
+    this.addupdateFormGroup.value.typeEvent=this.attributeType(1);
 this.eventService.saveCulte(event).subscribe({
+  next: (data:any)=> {alert("Evenement proposé en ajout");
+this.addupdateFormGroup.reset();
+this.route.navigateByUrl("/staraccount");},
+  error:(err:any)=> {console.log(err); }
+});
+  }
+  else{
+    this.addupdateFormGroup.value.typeEvent=this.attributeType(this.addupdateFormGroup.get("typeEvent")!.value);
+    console.log(this.addupdateFormGroup.value.typeEvent)
+
+this.eventService.savePhysicalEvent(event).subscribe({
   next: (data:any)=> {alert("Evenement proposé en ajout");
 this.addupdateFormGroup.reset();
 this.route.navigateByUrl("/staraccount");},
@@ -38,11 +54,11 @@ addupdateFormGroup!: FormGroup;
 constructor(private fb:FormBuilder, private eventService:EventsService,private route:Router){}
 ngOnInit(): void {
   this.addupdateFormGroup=this.fb.group({
-    type:this.fb.control(null),
+    typeEvent:this.fb.control(null),
     date:this.fb.control(null,[Validators.required]),
     debut:this.fb.control(null,[Validators.required]),
     fin:this.fb.control(null,[Validators.required]),
-    nom:this.fb.control("",[Validators.required,Validators.minLength(4)]),
+    name:this.fb.control("",[Validators.required,Validators.minLength(4)]),
     conducteur:this.fb.control("",[Validators.required,Validators.minLength(4)]),
     titre:this.fb.control(""),
     hommes:this.fb.control(0,[Validators.required]),

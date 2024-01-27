@@ -11,6 +11,12 @@ import { User } from '../model/user.model';
   providedIn: 'root'
 })
 export class EventsService {
+  getFiltredEvents(type: EVENT_TYPE, debut: any, fin: any):Observable<Array<PhysicalEvent>> {
+    return this.http.get<Array<PhysicalEvent>>("http://localhost:8081/events/search4?debut="+debut+"&fin="+fin+"&type="+type)
+  }
+  savePhysicalEvent(event:any): Observable<any> {
+    return this.http.post("http://localhost:8081/events", event)
+  }
 
   delete(id:any) {
     return this.http.delete("http://localhost:8081/events/"+id);
@@ -46,8 +52,8 @@ for(let user of userList){
 }
 return null;
 }
-public filterByType(type:EVENT_TYPE):Observable<Array<PhysicalEvent>>{
-  return this.http.get<Array<PhysicalEvent>>("http://localhost:8081/events/"+type);
+public filterByType(typeEvent:EVENT_TYPE):Observable<Array<PhysicalEvent>>{
+  return this.http.get<Array<PhysicalEvent>>("http://localhost:8081/events/"+typeEvent);
 }
 
   }

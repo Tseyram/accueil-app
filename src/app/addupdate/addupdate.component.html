@@ -11,7 +11,7 @@
           <label class="form-label">Type:</label>
           <select
             class="form-select"
-            formControlName="type"
+            formControlName="typeEvent"
             aria-label="Default select example"
           >
             <option selected>choix</option>
@@ -33,7 +33,7 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Nom: </label>
-          <input type="text" formControlName="nom" class="form-control" />
+          <input type="text" formControlName="name" class="form-control" />
         </div>
         <div class="mb-3">
           <label class="form-label">Debut: </label>
@@ -88,7 +88,7 @@
             class="form-control"
           />
         </div>
-        <ng-container *ngIf="isCulte == true">
+        <ng-container *ngIf="addupdateFormGroup.get('typeEvent')!.value == 1">
           <div class="mb-3">
             <label class="form-label">Nouveaux: </label>
             <input
@@ -176,6 +176,8 @@
         <button [disabled]="!addupdateFormGroup" class="btn btn-info">
           Proposer ajout
         </button>
+
+        <button class="btn btn-danger" (click)="handleCancel()">Annuler</button>
       </form>
     </div>
   </div>
