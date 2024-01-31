@@ -14,6 +14,7 @@ export interface EventsDTO {
   debut:      Time;
   fin:        Time;
   name:       string;
+  titre :string;
   typeEvent:       EVENT_TYPE;
 }
 
@@ -25,7 +26,7 @@ export interface Event {
    fin:Time;
 
   name:string;
-
+titre : string;
    typeEvent:EVENT_TYPE;
 }
 
@@ -39,6 +40,15 @@ export interface PhysicalEvent extends Event{
 }
 
 export interface Culte extends PhysicalEvent {
+
+hommesIntercession:number;
+femmesIntercession:number;
+enfantsIntercession:number;
+nouveauxHommes:number;
+nouveauxFemmes:number;
+enfantsMIJ:number;
+conducteurIntercession:string;
+moderatrice:string;
 
 }
 export enum EVENT_TYPE{

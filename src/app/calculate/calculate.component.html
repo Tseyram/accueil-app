@@ -1,29 +1,36 @@
 <div class="container">
   <div class="row">
     <div class="card col-md-6 offset-3 mt-2">
-      <div class="card-header">Calculer</div>
+      <div class="card-header">
+        Calculer
+        <button class="btn btn-danger" (click)="handleLeaveCalculate()">
+          x
+        </button>
+      </div>
       <div class="card-body">
         <form [formGroup]="calculateFormGroup" (ngSubmit)="handleCalculate()">
           <div class="mb-3">
             <label class="form-label">Vous voulez : </label>
           </div>
           <div class="mb-3">
-            <select class="form-select" aria-label="Default select example">
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="choix"
+            >
               <option selected>choix</option>
-              <option value="1" (click)="choice = 'Valeur'">
-                retrouver une valeur
-              </option>
-              <option value="2" (click)="choice = 'NoValue'">
-                calculer une moyenne
-              </option>
-              <option value="3" (click)="choice = 'NoValue'">
-                calculer une somme
-              </option>
+              <option [ngValue]="1">retrouver une valeur</option>
+              <option [ngValue]="2">calculer une moyenne</option>
+              <option [ngValue]="3">calculer une somme</option>
             </select>
           </div>
           <div class="mb-3">
             <label class="form-label"> du nombre: </label>
-            <select class="form-select" aria-label="Default select example">
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="numberType"
+            >
               <option selected>choix:</option>
               <option value="1">d'hommes ayant participé</option>
               <option value="2">de femmes ayant participé</option>
@@ -35,48 +42,141 @@
           </div>
           <div class="mb-3">
             <label class="form-label">à quel évènement? : </label>
-            <select class="form-select" aria-label="Default select example">
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="eventType"
+            >
               <option selected>choix</option>
-              <option value="1">Culte</option>
-              <option value="2">TPA</option>
-              <option value="3">MHI</option>
-              <option value="4">MFI</option>
-              <option value="5">MJI</option>
-              <option value="6">Corporate(24H,48H...)</option>
-              <option value="7">Séminaire</option>
-              <option value="8">Baptème</option>
-              <option value="9">MCEP</option>
-              <option value="10">MIJ</option>
-              <option value="11">MJI</option>
-              <option value="12">Autre</option>
+              <option [ngValue]="1">Culte</option>
+              <option [ngValue]="2">TPA</option>
+              <option [ngValue]="3">MHI</option>
+              <option [ngValue]="4">MFI</option>
+              <option [ngValue]="5">MJI</option>
+              <option [ngValue]="6">Corporate(24H,48H...)</option>
+              <option [ngValue]="7">Séminaire</option>
+              <option [ngValue]="8">Baptème</option>
+              <option [ngValue]="9">MCEP</option>
+              <option [ngValue]="10">MIJ</option>
+              <option [ngValue]="11">STAR</option>
+              <option [ngValue]="12">Bienvenue</option>
+              <option [ngValue]="13">Autre</option>
             </select>
           </div>
-          <div class="mb-3" *ngIf="choice === 'Valeur'">
+          <div class="mb-3" *ngIf="calculateFormGroup.get('choix')!.value == 1">
             <label class="form-label">Quel date?: </label>
-            <input type="date" formControlName="nom" class="form-control" />
+            <input type="date" formControlName="date" class="form-control" />
           </div>
-          <div class="mb-3" *ngIf="choice == 'NoValue'">
+          <div
+            class="mb-3"
+            *ngIf="
+              calculateFormGroup.get('choix')!.value == 2 ||
+              calculateFormGroup.get('choix')!.value == 3
+            "
+          >
             <label class="form-label">Quelle période?: </label>
             <div class="nav nav-pills">
               <label for="">A partir de :</label>
-              <input type="date" formControlName="nom" class="form-control" />
+              <input type="date" formControlName="debut" class="form-control" />
             </div>
             <div class="nav nav-pills">
               <label for="">Jusqu'à :</label>
-              <input type="date" formControlName="nom" class="form-control" />
+              <input type="date" formControlName="fin" class="form-control" />
             </div>
           </div>
-          <div class="mb-3">
+          <div class="row">
+            <button
+              class="btn btn-outline-success ms-1"
+              (click)="handleSearch()"
+            >
+              Rechercher
+            </button>
+          </div>
+          <div class="card-body" *ngIf="search == true">
+            <ng-container *ngIf="eventsFound!.length == 0">
+              <strong> Aucun évènement ne correspond à votre recherche</strong>
+            </ng-container>
+            <ng-container *ngIf="!eventsFound">
+              <strong> Aucun évènement ne correspond à votre recherche</strong>
+            </ng-container>
+            <table
+              *ngIf="eventsFound!.length !== 0"
+              class="table table-hover"
+              aria-label="evenements en présentiel"
+            >
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Evenement</th>
+                  <th>Debut</th>
+                  <th>Fin</th>
+                  <th>Conducteur</th>
+
+                  <th>Choix</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let e of eventsFound">
+                  <td>{{ e.date | date : "mediumDate" }}</td>
+                  <td>{{ e.name }}</td>
+                  <td>{{ e.debut }}</td>
+                  <td>{{ e.fin }}</td>
+                  <td>{{ e.conducteur }}</td>
+
+                  <td>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckChecked"
+                      checked
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mb-3" *ngIf="eventsFound && eventsFound.length != 0">
             <button class="btn btn-outline-success ms-1" type="submit">
               Calculer
             </button>
           </div>
         </form>
+        <div>
+          <button class="btn btn-outline-danger ms-1" (click)="handleReset()">
+            Reset
+          </button>
+        </div>
       </div>
     </div>
-    <div class="card col-md-6 offset-3 mt-2">
-      <div class="card-header">Résultats</div>
-      <div class="card-body"></div>
+    <div
+      class="card col-md-6 offset-3 mt-2"
+      *ngIf="eventsFound && eventsFound.length != 0"
+    >
+      <div class="card-header" *ngIf="calculate == true">Résultats</div>
+      <div
+        class="card-body"
+        *ngIf="calculateFormGroup.get('choix')!.value == 1"
+      >
+        Le nombre {{ typeDePersonne }} ayant participé au {{ typeEvenement }} du
+        {{ calculateFormGroup.get("date")!.value }} vaut : {{ value }}
+      </div>
+      <div
+        class="card-body"
+        *ngIf="calculateFormGroup.get('choix')!.value == 2"
+      >
+        La moyenne de {{ typeDePersonne }} ayant participé aux
+        {{ typeEvenement }} du {{ calculateFormGroup.get("debut")!.value }} au
+        {{ calculateFormGroup.get("debut")!.value }} vaut : {{ mean }}
+      </div>
+      <div
+        class="card-body"
+        *ngIf="calculateFormGroup.get('choix')!.value == 3"
+      >
+        La somme de {{ typeDePersonne }} ayant participé aux
+        {{ typeEvenement }} au {{ calculateFormGroup.get("fin")!.value }} vaut :
+        {{ sum }}
+      </div>
     </div>
   </div>
 </div>

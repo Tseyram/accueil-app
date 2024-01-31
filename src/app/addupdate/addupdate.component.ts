@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EVENT_TYPE, PhysicalEvent } from '../model/event.model';
+import { PhysicalEvent } from '../model/event.model';
 import { EventsService } from '../services/events.service';
 
 @Component({
@@ -10,26 +10,22 @@ import { EventsService } from '../services/events.service';
   styleUrl: './addupdate.component.css'
 })
 export class AddupdateComponent {
-handleCancel() {
+handleLeave() {
   this.route.navigateByUrl("/staraccount");
+  this.addupdateFormGroup.reset();
+}
+handleCancel() {
+  this.handleLeave();
 }
 type: any;
-attributeType(arg0: number):EVENT_TYPE  {
-  let typeList:EVENT_TYPE[]=[EVENT_TYPE.CULTE,EVENT_TYPE.TPA,EVENT_TYPE.MHI,EVENT_TYPE.MFI,
-    EVENT_TYPE.MJI,EVENT_TYPE.CORPORATE,EVENT_TYPE.SEMINAIRE,EVENT_TYPE.BAPTEME,
-    EVENT_TYPE.MCEP,EVENT_TYPE.MIJ,EVENT_TYPE.STAR,EVENT_TYPE.BIENVENUE,
-    EVENT_TYPE.AUTRE];
-    console.log('attribution')
-    return typeList[arg0-1];
 
-  }
 handleaddUpdate() {
 
  let event:PhysicalEvent=this.addupdateFormGroup.value;
   // event.type=
 
   if(this.addupdateFormGroup.get("typeEvent")!.value==1){
-    this.addupdateFormGroup.value.typeEvent=this.attributeType(1);
+    this.addupdateFormGroup.value.typeEvent=this.eventService.attributeType(1);
 this.eventService.saveCulte(event).subscribe({
   next: (data:any)=> {alert("Evenement proposé en ajout");
 this.addupdateFormGroup.reset();
@@ -38,7 +34,7 @@ this.route.navigateByUrl("/staraccount");},
 });
   }
   else{
-    this.addupdateFormGroup.value.typeEvent=this.attributeType(this.addupdateFormGroup.get("typeEvent")!.value);
+    this.addupdateFormGroup.value.typeEvent=this.eventService.attributeType(this.addupdateFormGroup.get("typeEvent")!.value);
     console.log(this.addupdateFormGroup.value.typeEvent)
 
 this.eventService.savePhysicalEvent(event).subscribe({
@@ -67,12 +63,12 @@ ngOnInit(): void {
     hommesIntercession:this.fb.control(0,[Validators.required]),
     femmesIntercession:this.fb.control(0,[Validators.required]),
     enfantsIntercession:this.fb.control(0,[Validators.required]),
-    mij:this.fb.control(0,[Validators.required]),
+    enfantsMIJ:this.fb.control(0,[Validators.required]),
     connexions:this.fb.control(0),
-    moderateur:this.fb.control(""),
+    moderatrice:this.fb.control(""),
     conducteurIntercession:this.fb.control("",[Validators.required]),
-    nouveauxF:this.fb.control(0,[Validators.required]),
-    nouveauxH:this.fb.control(0,[Validators.required]),
+    nouveauxFemmes:this.fb.control(0,[Validators.required]),
+    nouveauxHommes:this.fb.control(0,[Validators.required]),
     commentaire:this.fb.control("")
 
   })

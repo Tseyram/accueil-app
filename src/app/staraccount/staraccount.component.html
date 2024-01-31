@@ -6,7 +6,11 @@
     <div class="col col-md-6">
       <div class="container mt-2">
         <div *ngIf="errorMessage">
-          {{ errorMessage }}
+          There is an error :{{ errorMessage }}
+          <button class="btn btn-primary">
+            <i class="bi bi-arrow-clockwise" (click)="handleGetEvents()"></i
+            >Reload
+          </button>
         </div>
         <div class="card" *ngIf="events">
           <div class="card-header">Evenements</div>
@@ -147,8 +151,9 @@
                           <a
                             (click)="handleUpdate(e)"
                             class="btn btn-info ms-1 mt-1"
+                            routerLink="/modify"
                           >
-                            <i class="bi bi-arrow-clockwise"></i>
+                            <i class="bi bi-pencil"></i>
                           </a>
                         </li>
                       </ul>
@@ -225,8 +230,9 @@
                           <a
                             (click)="handleUpdate(e)"
                             class="btn btn-info ms-1 mt-1"
+                            routerLink="/modify"
                           >
-                            <i class="bi bi-arrow-clockwise"></i>
+                            <i class="bi bi-pencil"></i>
                           </a>
                         </li>
                       </ul>
@@ -311,15 +317,10 @@
               <span class="badge rounded-pill text-bg-info">Connexions</span>
               <label class="">{{ eS.connexions }} </label>
             </div>
-            <div class="nav nav-pills">
+            <div class="nav nav-pills" *ngIf="role !== 'BERGER'">
               <button class="btn btn-danger">Supprimer</button>
               <button class="btn btn-info">Modifier</button>
             </div>
-
-            <!-- <label for="">Nombre d'hommes: {{ eS. }} </label>
-            <label for="">Nombre de femmes: {{ e.name }} </label>
-            <label for="">Nombre d'enfants: {{ e.name }} </label>
-            <label for="">Nombre de connexions: {{ e.name }} </label> -->
           </div>
         </div>
       </div>

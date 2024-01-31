@@ -1,7 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="card col-md-6 offset-3 mt-2">
-      <div class="card-header">Rechercher</div>
+      <div class="card-header">
+        Rechercher
+        <button class="btn btn-danger text-end" (click)="handleLeaveSearch()">
+          x
+        </button>
+      </div>
       <div class="card-body">
         <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearch()">
           <div class="mb-3">
@@ -29,27 +34,33 @@
               <option [ngValue]="12">Coktail de Bienvenue</option>
               <option [ngValue]="13">Autre</option>
             </select>
-            <div class="mb-3">
-              <label class="form-label">par ?: </label>
-              <select
-                class="form-select"
-                aria-label="Default select example"
-                formControlName="filtre"
-              >
-                <option selected>filtre</option>
-                <option [ngValue]="1">date</option>
-                <option [ngValue]="2">période</option>
-                <option [ngValue]="3">conducteur</option>
-                <option [ngValue]="4">titre</option>
-                <option [ngValue]="5">modérateur</option>
-              </select>
-            </div>
           </div>
-          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value === 1">
-            <label class="form-label">Quel date?: </label>
-            <input type="date" formControlName="date" class="form-control" />
+          <div class="mb-3">
+            <label class="form-label">par ?: </label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="filtre"
+            >
+              <option selected>filtre</option>
+              <option [ngValue]="1">date</option>
+              <option [ngValue]="2">période</option>
+              <option [ngValue]="3">conducteur</option>
+              <option [ngValue]="4">modérateur</option>
+              <option [ngValue]="5">titre</option>
+            </select>
           </div>
-          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value === 2">
+          <ng-container *ngIf="searchFormGroup.get('filtre')!.value == 1"
+            ><div class="mb-3">
+              <label class="form-label">Quel date?: </label>
+              <input
+                type="date"
+                formControlName="date"
+                class="form-control"
+              /></div
+          ></ng-container>
+
+          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value == 2">
             <label class="form-label">Quelle période?: </label>
             <div class="nav nav-pills">
               <label for="">A partir de :</label>
@@ -60,7 +71,7 @@
               <input type="date" formControlName="fin" class="form-control" />
             </div>
           </div>
-          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value === 3">
+          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value == 3">
             <label class="form-label">Entrez le nom du conducteur: </label>
             <input
               type="text"
@@ -68,7 +79,7 @@
               class="form-control"
             />
           </div>
-          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value === 4">
+          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value == 4">
             <label class="form-label">Entrez le nom de la modératrice: </label>
             <input
               type="text"
@@ -76,9 +87,9 @@
               class="form-control"
             />
           </div>
-          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value === 5">
+          <div class="mb-3" *ngIf="searchFormGroup.get('filtre')!.value == 5">
             <label class="form-label">Entrez le titre: </label>
-            <input type="date" formControlName="titre" class="form-control" />
+            <input type="text" formControlName="titre" class="form-control" />
           </div>
           <div class="mb-3">
             <button class="btn btn-outline-success ms-1" type="submit">
@@ -90,7 +101,50 @@
     </div>
     <div class="card col-md-6 offset-3 mt-2">
       <div class="card-header">Résultats</div>
-      <div class="card-body"></div>
+      <div *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="card-body">
+        <ng-container *ngIf="eventsFound!.length == 0">
+          <strong> Aucun évènement ne correspond à votre recherche</strong>
+        </ng-container>
+        <ng-container *ngIf="!eventsFound">
+          <strong> Aucun évènement ne correspond à votre recherche</strong>
+        </ng-container>
+        <table
+          *ngIf="eventsFound!.length !== 0"
+          class="table table-hover"
+          aria-label="evenements en présentiel"
+        >
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Evenement</th>
+              <th>Debut</th>
+              <th>Fin</th>
+              <th>Conducteur</th>
+
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let e of eventsFound">
+              <td>{{ e.date | date : "mediumDate" }}</td>
+              <td>{{ e.name }}</td>
+              <td>{{ e.debut }}</td>
+              <td>{{ e.fin }}</td>
+              <td>{{ e.conducteur }}</td>
+
+              <td>
+                <a (click)="handleShow(e)" class="btn btn-info ms-1 mt-1">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

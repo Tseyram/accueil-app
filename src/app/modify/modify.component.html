@@ -1,174 +1,321 @@
 <div class="container">
   <div class="card col-md-6 offset-3 mt-2">
-    <div class="card-header">Modifier Evenement</div>
-    <div class="card-body">
-      <form [formGroup]="modifyFormGroup" (ngSubmit)="handleModify(true)">
-        <div class="mb-3">
-          <label class="form-label">Date: </label>
-          <input type="date" formControlName="date" class="form-control" />
-        </div>
-        <button class="btn btn-info">Rechercher</button>
-        <div class="mb-3">
-          <label class="form-label">Type:</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>choix</option>
-            <option value="1" (click)="isCulte = true">Culte</option>
-            <option value="2">TPA</option>
-            <option value="3">MHI</option>
-            <option value="4">MFI</option>
-            <option value="5">MJI</option>
-            <option value="6">Corporate(24H,48H...)</option>
-            <option value="7">Séminaire</option>
-            <option value="8">Baptème</option>
-            <option value="9">MCEP</option>
-            <option value="10">MIJ</option>
-            <option value="11">MJI</option>
-            <option value="12">Autre</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Nom: </label>
-          <input type="text" formControlName="nom" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Debut: </label>
-          <input type="time" formControlName="debut" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Fin: </label>
-          <input type="time" formControlName="fin" class="form-control" />
-        </div>
+    <div class="card-header">
+      Modifier Evenement
+      <button class="btn btn-danger text-end" (click)="handleLeaveModify()">
+        x
+      </button>
+    </div>
 
-        <div class="mb-3">
-          <label class="form-label">Conducteur: </label>
-          <input
-            type="text"
-            formControlName="conducteur"
-            class="form-control"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Hommes: </label>
-          <input
-            type="number"
-            formControlName="hommes"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Femmes: </label>
-          <input
-            type="number"
-            formControlName="femmes"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Enfants: </label>
-          <input
-            type="number"
-            formControlName="enfants"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Connexions: </label>
-          <input
-            type="number"
-            formControlName="connexions"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Nouveaux: </label>
-          <input
-            type=" number"
-            formControlName="nouveauxH"
-            placeholder="0"
-            class="form-control"
-          />
-          <label class="form-label">H </label>
-          <input
-            type=" number"
-            formControlName="nouveauxF"
-            placeholder="0"
-            class="form-control"
-          />
-          <label class="form-label">F </label>
-          <label class="form-label"> Total: </label>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Titre: </label>
-          <input type="text" formControlName="titre" class="form-control" />
-        </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Hommes intercession: </label>
-          <input
-            type="number"
-            formControlName="hommesIntercession"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Femmes intercession: </label>
-          <input
-            type="number"
-            formControlName="femmesIntercession"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Enfants intercession: </label>
-          <input
-            type="number"
-            formControlName="enfantsIntercession"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Conducteur intercession: </label>
-          <input
-            type="text"
-            formControlName="conducteurIntercession"
-            class="form-control"
-          />
-        </div>
-        <div *ngIf="isCulte == true" class="mb-3">
-          <label class="form-label">Enfants MIJ: </label>
-          <input
-            type="number"
-            formControlName="mij"
-            placeholder="0"
-            class="form-control"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Modérateur: </label>
-          <input
-            type="text"
-            formControlName="moderateur"
-            class="form-control"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Commentaire: </label>
-          <input
-            type="text"
-            formControlName="commentaire"
-            class="form-control"
-          />
-        </div>
-        <button [disabled]="!modifyFormGroup" class="btn btn-info">
-          Proposer
-        </button>
-      </form>
+    <div class="card-body">
+      <ng-container *ngIf="isDirect == false">
+        <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearch()">
+          <div class="mb-3">
+            <label class="form-label">Date: </label>
+            <input type="date" formControlName="date" class="form-control" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Type:</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="typeEvent"
+            >
+              <option selected>choix</option>
+              <option value="1">Culte</option>
+              <option value="2">TPA</option>
+              <option value="3">MHI</option>
+              <option value="4">MFI</option>
+              <option value="5">MJI</option>
+              <option value="6">Corporate(24H,48H...)</option>
+              <option value="7">Séminaire</option>
+              <option value="8">Baptème</option>
+              <option value="9">MCEP</option>
+              <option value="10">MIJ</option>
+              <option value="11">STAR</option>
+              <option value="12">Bienvenue</option>
+              <option value="13">Autre</option>
+            </select>
+          </div>
+          <button class="btn btn-info">Rechercher</button>
+        </form>
+        <ng-container *ngIf="search == true">
+          <div>
+            <ng-container *ngIf="events!.length == 0">
+              Aucun évènement ne correspond à votre recherche
+            </ng-container>
+            <table
+              class="table table-hover"
+              aria-label="evenements en présentiel"
+            >
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Evenement</th>
+                  <th>Debut</th>
+                  <th>Fin</th>
+                  <th>Conducteur</th>
+
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let e of events">
+                  <td>{{ e.date | date : "mediumDate" }}</td>
+                  <td>{{ e.name }}</td>
+                  <td>{{ e.debut }}</td>
+                  <td>{{ e.fin }}</td>
+                  <td>{{ e.conducteur }}</td>
+
+                  <td>
+                    <ul class="nav nav pills">
+                      <li>
+                        <a
+                          (click)="handleDeleteEvent(e)"
+                          class="btn btn-danger ms-1 mt-1"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          (click)="displayEventTomodify(e)"
+                          class="btn btn-info ms-1 mt-1"
+                        >
+                          <i class="bi bi-pencil"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table></div
+        ></ng-container>
+      </ng-container>
+      <ng-container *ngIf="enableModification == true">
+        <form [formGroup]="modifyFormGroup" (ngSubmit)="handleModify()">
+          <div class="mb-3">
+            <label class="form-label">Type:</label>
+            <select
+              class="form-select"
+              formControlName="typeEvent"
+              aria-label="Default select example"
+              [value]="modifyFormGroup.value.typeEvent"
+            >
+              <option selected>choix</option>
+              <option [ngValue]="1">Culte</option>
+              <option [ngValue]="2">TPA</option>
+              <option [ngValue]="3">MHI</option>
+              <option [ngValue]="4">MFI</option>
+              <option [ngValue]="5">MJI</option>
+              <option [ngValue]="6">Corporate(24H,48H...)</option>
+              <option [ngValue]="7">Séminaire</option>
+              <option [ngValue]="8">Baptème</option>
+              <option [ngValue]="9">MCEP</option>
+              <option [ngValue]="10">MIJ</option>
+              <option [ngValue]="11">MJI</option>
+              <option [ngValue]="12">STAR</option>
+              <option [ngValue]="13">Coktail de Bienvenue</option>
+              <option [ngValue]="14">Autre</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Date: </label>
+            <input
+              type="date"
+              formControlName="date"
+              class="form-control"
+              [value]="modifyFormGroup.value.date"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nom: </label>
+            <input
+              type="text"
+              formControlName="name"
+              class="form-control"
+              [value]="modifyFormGroup.value.name"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Debut: </label>
+            <input
+              type="time"
+              formControlName="debut"
+              class="form-control"
+              [value]="modifyFormGroup.value.debut"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Fin: </label>
+            <input
+              type="time"
+              formControlName="fin"
+              class="form-control"
+              [value]="modifyFormGroup.value.fin"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Conducteur: </label>
+            <input
+              type="text"
+              formControlName="conducteur"
+              class="form-control"
+              [value]="modifyFormGroup.value.conducteur"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Hommes: </label>
+            <input
+              type="number"
+              formControlName="hommes"
+              placeholder="0"
+              class="form-control"
+              [value]="modifyFormGroup.value.hommes"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Femmes: </label>
+            <input
+              type="number"
+              formControlName="femmes"
+              placeholder="0"
+              class="form-control"
+              [value]="modifyFormGroup.value.femmes"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Enfants: </label>
+            <input
+              type="number"
+              formControlName="enfants"
+              placeholder="0"
+              class="form-control"
+              [value]="modifyFormGroup.value.enfants"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Connexions: </label>
+            <input
+              type="number"
+              formControlName="connexions"
+              placeholder="0"
+              class="form-control"
+              [value]="modifyFormGroup.value.connexions"
+            />
+          </div>
+          <ng-container *ngIf="isCulte == true">
+            <div class="mb-3">
+              <label class="form-label">Nouveaux: </label>
+              <input
+                type=" number"
+                formControlName="nouveauxHommes"
+                placeholder="0"
+                class="form-control"
+                [value]="modifyFormGroup.value.nouveauxHommes"
+              />
+              <label class="form-label">H </label>
+              <input
+                type=" number"
+                formControlName="nouveauxFemmes"
+                placeholder="0"
+                class="form-control"
+                [value]="modifyFormGroup.value.nouveauxFemmes"
+              />
+              <label class="form-label">F </label>
+              <label class="form-label"> Total: </label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Titre: </label>
+              <input
+                type="text"
+                formControlName="titre"
+                class="form-control"
+                [value]="modifyFormGroup.value.titre"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Hommes intercession: </label>
+              <input
+                type="number"
+                formControlName="hommesIntercession"
+                placeholder="0"
+                class="form-control"
+                [value]="modifyFormGroup.value.hommesIntercession"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Femmes intercession: </label>
+              <input
+                type="number"
+                formControlName="femmesIntercession"
+                placeholder="0"
+                class="form-control"
+                [value]="modifyFormGroup.value.femmesIntercession"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Enfants intercession: </label>
+              <input
+                type="number"
+                formControlName="enfantsIntercession"
+                placeholder="0"
+                class="form-control"
+                [value]="modifyFormGroup.value.enfantsIntercession"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Conducteur intercession: </label>
+              <input
+                type="text"
+                formControlName="conducteurIntercession"
+                class="form-control"
+                [value]="modifyFormGroup.value.conducteurIntercession"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Enfants MIJ: </label>
+              <input
+                type="number"
+                formControlName="enfantsMIJ"
+                placeholder="0"
+                class="form-control"
+                [value]="modifyFormGroup.value.enfantsMIJ"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Modératrice: </label>
+              <input
+                type="text"
+                formControlName="moderatrice"
+                class="form-control"
+                [value]="modifyFormGroup.value.moderatrice"
+              />
+            </div>
+          </ng-container>
+          <div class="mb-3">
+            <label class="form-label">Commentaire: </label>
+            <input
+              type="text"
+              formControlName="commentaire"
+              class="form-control"
+              [value]="modifyFormGroup.value.commentaire"
+            />
+          </div>
+          <button [disabled]="!modifyFormGroup" class="btn btn-info">
+            Proposer
+          </button>
+          <button
+            [disabled]="!modifyFormGroup"
+            class="btn btn-danger"
+            (click)="handleCancelModify()"
+          >
+            Annuler
+          </button>
+        </form>
+      </ng-container>
     </div>
   </div>
 </div>

@@ -20,13 +20,7 @@ handleCancelFilters() {
 this.isFiltred=false;
 this.handleGetEvents();
 }
-attributeType(arg0: number) :EVENT_TYPE{
-let typeList:EVENT_TYPE[]=[EVENT_TYPE.CULTE,EVENT_TYPE.TPA,EVENT_TYPE.MHI,EVENT_TYPE.MFI,
-  EVENT_TYPE.MJI,EVENT_TYPE.CORPORATE,EVENT_TYPE.SEMINAIRE,EVENT_TYPE.BAPTEME,
-  EVENT_TYPE.MCEP,EVENT_TYPE.MIJ,EVENT_TYPE.STAR,EVENT_TYPE.BIENVENUE,
-  EVENT_TYPE.AUTRE];
-  return typeList[arg0-1];
-}
+
 
 
 closeShow() {
@@ -45,8 +39,9 @@ eventToShow!:PhysicalEvent;
 
 
 
-handleUpdate(_t38: any) {
-throw new Error('Method not implemented.');
+handleUpdate(e: PhysicalEvent) {
+
+this.eventsService.sendEventToModify(e,true);
 }
 handleDeleteEvent(e: PhysicalEvent) {
   let conf =confirm("Are you sure?")
@@ -64,7 +59,7 @@ this.handleGetEvents();
 handleSearchEvents() {
 
   console.log(this.filterFormGroup.get("typeEvent")!.value)
-this.type=this.attributeType(this.filterFormGroup.get("typeEvent")!.value);
+this.type=this.eventsService.attributeType(this.filterFormGroup.get("typeEvent")!.value);
 this.eventsService.getFiltredEvents(this.type,this.filterFormGroup.value.debut,this.filterFormGroup.value.fin)
 .subscribe({
   next:(data: any)=>{this.events.eventsDTOs=data;
@@ -85,7 +80,7 @@ else if(this.filterFormGroup.value.fin ==undefined){alert('veuillez définir la 
 this.isFiltred=true;
 
 }
-searchFormGroup!: FormGroup;
+
 handleDeconnexion() {
   throw new Error('Method not implemented.');
 }
@@ -107,8 +102,8 @@ handleDeconnexion() {
   ngOnInit(): void {
 this.filterFormGroup=this.fb.group({
   typeEvent:this.fb.control(null ),
-  debut:this.fb.control("01/01/2024"),
-  fin:this.fb.control("01/01/2024")
+  debut:this.fb.control(null),
+  fin:this.fb.control(null)
   });
       this.eventsService.user.pipe(
         map((resultat:any) => {
