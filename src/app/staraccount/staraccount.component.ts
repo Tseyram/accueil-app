@@ -13,6 +13,11 @@ import { EventsService } from './../services/events.service';
 })
 
 export class StaraccountComponent {
+  haveError:boolean=false;
+handleReloadEvents() {
+this.haveError=false;
+this.handleGetEvents();
+}
 filterFormGroup!: FormGroup;
 //annuler les filtres
 handleCancelFilters() {
@@ -86,7 +91,7 @@ handleDeconnexion() {
 }
   events!:EventHistory;
   original_events:any;
-  errorMessage!:string;
+  errorMessage:string|undefined;
   role!:USER_ROLE;
   currentPage:number=0;
   pageSize:number=3;
@@ -95,7 +100,13 @@ handleDeconnexion() {
 
   gotToPage(page: number) {
     this.currentPage=page;
-    this.handleGetEvents();
+    if (this.isFiltred){
+      this.showFiltredEventsWithRightPage();
+    } else{
+      this.handleGetEvents();
+    }
+
+
     }
   constructor(private eventsService:EventsService, private fb: FormBuilder){}
 
@@ -124,7 +135,12 @@ this.handleGetEvents();
 
       },
       error:(err: any)=>{this.errorMessage=err.message;
+        this.haveError=true;
     }
 })
+  }
+
+  private showFiltredEventsWithRightPage() {
+
   }
 }

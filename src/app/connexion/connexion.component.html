@@ -70,8 +70,8 @@
                 </div>
 
                 <form
-                  [formGroup]="connexionFormGroup"
-                  (ngSubmit)="handleConnexion()"
+                  [formGroup]="formLogin"
+                  (ngSubmit)="handleLogin()"
                 >
                   <p>Mettez votre login et mot de passe</p>
 
@@ -94,7 +94,7 @@
                       id="form2Example22"
                       class="form-control"
                       placeholder="Password"
-                      formControlName="mdp"
+                      formControlName="password"
                     />
                     <!-- <label class="form-label" for="form2Example22"
                         >Password</label

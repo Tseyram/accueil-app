@@ -3,7 +3,10 @@
     <div class="card col-md-6 offset-3 mt-2">
       <div class="card-header">
         Calculer
-        <button class="btn btn-danger" (click)="handleLeaveCalculate()">
+        <button
+          class="btn btn-danger text-end"
+          (click)="handleLeaveCalculate()"
+        >
           x
         </button>
       </div>
@@ -165,7 +168,7 @@
         class="card-body"
         *ngIf="calculateFormGroup.get('choix')!.value == 2"
       >
-        La moyenne de {{ typeDePersonne }} ayant participé aux
+        La moyenne {{ typeDePersonne }} ayant participé aux
         {{ typeEvenement }} du {{ calculateFormGroup.get("debut")!.value }} au
         {{ calculateFormGroup.get("debut")!.value }} vaut : {{ mean }}
       </div>
@@ -173,8 +176,8 @@
         class="card-body"
         *ngIf="calculateFormGroup.get('choix')!.value == 3"
       >
-        La somme de {{ typeDePersonne }} ayant participé aux
-        {{ typeEvenement }} au {{ calculateFormGroup.get("fin")!.value }} vaut :
+        La somme {{ typeDePersonne }} ayant participé aux {{ typeEvenement }} au
+        {{ calculateFormGroup.get("fin")!.value }} vaut :
         {{ sum }}
       </div>
     </div>

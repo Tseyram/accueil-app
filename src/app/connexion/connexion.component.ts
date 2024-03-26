@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../model/user.model';
 import { EventsService } from '../services/events.service';
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-connexion',
@@ -10,26 +11,30 @@ import { EventsService } from '../services/events.service';
   styleUrl: './connexion.component.css'
 })
 export class ConnexionComponent {
-handleConnexion() {
-  let username:string=this.connexionFormGroup.value.username.trim();
-  let mdp:string=this.connexionFormGroup.value.mdp.trim();
-  let user:User|null=this.eventService.handleUserConnexion(username,mdp);
+  formLogin :FormGroup;
 
+  constructor(private fb:FormBuilder, private authService:AuthService,private  router:Router) {
+    this.formLogin=this.fb.group({username:this.fb.control(""),
+      password:this.fb.control("")}
+    )
 
-  if (user){
-    this.eventService.user.next(user);
-    this.router.navigateByUrl("/staraccount");
   }
 
-}
-  connexionFormGroup!:FormGroup;
-  constructor(private fb:FormBuilder, private router:Router, private eventService:EventsService){}
-  ngOnInit(): void {
-    this.connexionFormGroup=this.fb.group({
-      username:this.fb.control(""),
-      mdp:this.fb.control("")
-  });
+  handleLogin() {
+    this.authService.login(this.formLogin.value.username,this.formLogin.value.password).subscribe(
+      {
+        next: data =>{
+
+          this.authService.loadProfile(data);
+          this.router.navigateByUrl("/staraccount");},
+        error: err=>{console.log(err)}
+      }
+    )
   }
+
+
+
+
 
 
 }

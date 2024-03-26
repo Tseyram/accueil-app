@@ -13,6 +13,8 @@ export interface EventsDTO {
   conducteur: string;
   debut:      Time;
   fin:        Time;
+  nombreParticipants:number;
+nombreAdultes:number;
   name:       string;
   titre :string;
   typeEvent:       EVENT_TYPE;
@@ -24,7 +26,8 @@ export interface Event {
   conducteur:string;
   debut :Time;
    fin:Time;
-
+nombreParticipants:number;
+nombreAdultes:number;
   name:string;
 titre : string;
    typeEvent:EVENT_TYPE;
